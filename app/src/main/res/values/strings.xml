@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">WashMania</string>
+
+    <string name="green_color">#e41b23</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Hello Food!</string>
+    <string name="slide_1_desc">The easiest way to order food from your favourite restaurant!</string>
+
+    <string name="slide_2_title">Expense Tracker</string>
+    <string name="slide_2_desc">Track your financial activity</string>
+
+    <string name="slide_3_title">Great Discounts</string>
+    <string name="slide_3_desc">Best discounts on every single service we offer!</string>
+
+    <string name="slide_4_title">World Travel</string>
+    <string name="no_internet_msg">No Internet Connection</string>
+
+    <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
+    <string name="share_pkg">
+        <![CDATA[<string name=\"share_pkg\" translatable=\"false\">WashMania \\n Download now.\\n\\nhttps://play.google.com/store/apps/details?id= </string>]]></string>
+    <string name="base_url">http://www.rajtutorialgroup.com/washmania/webservice/</string>
+</resources>
