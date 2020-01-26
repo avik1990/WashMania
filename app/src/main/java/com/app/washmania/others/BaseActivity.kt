@@ -6,8 +6,6 @@ import android.view.View
 import android.view.WindowManager
 import android.os.Build
 
-
-
 abstract class BaseActivity : AppCompatActivity() {
 
     var isActivityVisible: Boolean = false

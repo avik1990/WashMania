@@ -13,16 +13,16 @@ import com.app.washmania.R
 import com.app.washmania.model.Category
 import com.squareup.picasso.Picasso
 
-class NewsAdapter(
+class CategoryAdapter(
     private val context: Context,
     private val newsList: List<Category.CategoryDatum>,
     private val onNewsSelected: onRowItemSelected
-) : RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
+) : RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
 
     lateinit var rowView: View
 
     interface onRowItemSelected {
-        fun getPosition(id: String)
+        fun getPosition(id: String, catname: String)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -35,10 +35,8 @@ class NewsAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         if (!newsList[position].categoryPhoto.isNullOrBlank()) {
-            Picasso.get()
+            Picasso.with(context)
                 .load(newsList[position].categoryPhoto)
-                .resize(1024, 628)
-                .onlyScaleDown()
                 .into(holder.iv_catimage)
         }
 
@@ -46,7 +44,7 @@ class NewsAdapter(
 
 
         holder.card_view.setOnClickListener {
-            onNewsSelected.getPosition(newsList[position].categoryId)
+            onNewsSelected.getPosition(newsList[position].categoryId, newsList[position].categoryName)
         }
 
     }

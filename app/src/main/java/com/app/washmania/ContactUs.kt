@@ -1,10 +1,8 @@
 package com.app.washmania
 
-import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -13,7 +11,7 @@ import com.app.washmania.model.ContactUsModel
 import com.app.washmania.others.BaseActivity
 import com.app.washmania.others.CircularTextView
 import com.app.washmania.others.ConnectionDetector
-import com.app.washmania.others.Preference.get_Cartount
+import com.app.washmania.others.WMPreference.get_Cartount
 import com.app.washmania.others.Utility
 import com.app.washmania.retrofit.api.ApiServices
 import retrofit2.Call
@@ -113,9 +111,9 @@ class ContactUs : BaseActivity(), View.OnClickListener {
             finish()
             onBackPressed()
         } else if (v === iv_cart) {
-          /*  val i = Intent(mContext, ProductCart::class.java)
+            val i = Intent(mContext, ProductCart::class.java)
             i.putExtra("From", "Dashboard")
-            startActivity(i)*/
+            startActivity(i)
         }
     }
 

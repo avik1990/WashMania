@@ -11,7 +11,7 @@ import com.app.washmania.model.Privacymodel
 import com.app.washmania.others.BaseActivity
 import com.app.washmania.others.CircularTextView
 import com.app.washmania.others.ConnectionDetector
-import com.app.washmania.others.Preference.get_Cartount
+import com.app.washmania.others.WMPreference.get_Cartount
 import com.app.washmania.others.Utility.showToastShort
 import com.app.washmania.retrofit.api.ApiServices
 import retrofit2.Call
@@ -41,6 +41,8 @@ class PrivacyActivity : BaseActivity(), View.OnClickListener {
         pDialog.setCanceledOnTouchOutside(false)
         pDialog.setCancelable(false)
     }
+
+
 
     override fun initListeners() {
         val iv_home = findViewById(R.id.iv_home) as ImageView
@@ -81,9 +83,9 @@ class PrivacyActivity : BaseActivity(), View.OnClickListener {
             finish()
             onBackPressed()
         } else if (v === iv_cart) {
-            /* val i = Intent(mContext, ProductCart::class.java)
+             val i = Intent(mContext, ProductCart::class.java)
              i.putExtra("From", "Dashboard")
-             startActivity(i)*/
+             startActivity(i)
         }
     }
 

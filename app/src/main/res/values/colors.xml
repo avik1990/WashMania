@@ -11,7 +11,6 @@
     <color name="text_header">#f2f2f2</color>
     <color name="text_source">#bababa</color>
     <color name="back_color">#444444</color>
-    <color name="black">#000000</color>
     <color name="date_color">#49494a</color>
     <color name="grey">#888888</color>
 
@@ -50,6 +49,78 @@
         <item>@color/dot_dark_screen4</item>
     </array>
 
-    <color name="yellow">#FED852</color>
-    <color name="gray">#D3D3D3</color>
+
+    <color name="green">#689F39</color>
+    <color name="gray_divider">#888888</color>
+    <color name="orange">#FB641B</color>
+
+    <color name="welcome_bg">#fe4148</color>
+    <color name="login_light_grey">#f0f0f0</color>
+    <color name="gplus">#dd4c39</color>
+    <color name="fb">#0094ea</color>
+    <color name="dark_grey">#7a7a7a</color>
+    <color name="blue_text">#e41b23</color>
+
+    <color name="backgroundWhite">#e6e6e6</color>
+    <color name="colornormal">#9e9e9e</color>
+    <color name="backgroundBlue">#002f49</color>
+    <color name="button">#f44336</color>
+    <color name="light_pink">#f7dadf</color>
+
+    <color name="black">#555555</color>
+    <color name="dash_eve">#424242</color>
+    <color name="btn_gray">#3a3a3a</color>
+    <color name="light_black">#737373</color>
+    <color name="table_header">#397511</color>
+
+
+    <color name="tooltip">#2f3293</color>
+    <color name="colorAccentLight">#ef9a9a</color>
+    <color name="colorLoginBottomGrey">#d1d1d1</color>
+    <color name="dash_not_grey">#e0e0e0</color>
+    <color name="dash_grey">#8a8a8a</color>
+    <color name="dash_noti_grey">#757575</color>
+    <color name="transparent_grey">#CCdddddd</color>
+    <color name="lightgrey">#4a4949</color>
+    <color name="light_green_table">#b9e0b3</color>
+
+    <color name="light_grey">#dbdbdb</color>
+    <color name="nav_grey">#c5c5c5</color>
+    <color name="search_shadow_layout">#80000000</color>
+
+    <color name="route_textcolor">#c1c1c1</color>
+    <color name="grey_textcolor">#737373</color>
+
+    <color name="apptheme">#3F51B5</color>
+    <color name="bg_color">#b3909c</color>
+    <color name="bg_one">#7997e4</color>
+    <color name="bg_two">#c28815</color>
+    <color name="single_row_bg">#32a484</color>
+    <color name="single_row_bg_transparent">#bb32a484</color>
+    <color name="number_bg_color">#a4a0e6d2</color>
+
+    <color name="blue">#3F51B5</color>
+
+    <color name="caldroid_white">#FFFFFF</color>
+    <color name="caldroid_black">#000000</color>
+    <color name="caldroid_transparent">#00000000</color>
+    <!-- For settings framework -->
+    <color name="caldroid_lighter_gray">#ddd</color>
+    <color name="caldroid_gray">#CCC</color>
+    <color name="caldroid_darker_gray">#aaa</color>
+    <color name="caldroid_middle_gray">#888</color>
+    <!-- A light Holo shade of blue -->
+    <color name="caldroid_holo_blue_light">#ff33b5e5</color>
+    <!-- A dark Holo shade of blue -->
+    <color name="caldroid_holo_blue_dark">#ff0099cc</color>
+    <!-- A really bright Holo shade of blue -->
+    <color name="caldroid_sky_blue">#FFA3E8F7</color>
+
+    <color name="caldroid_333">#333</color>
+    <color name="caldroid_555">#555</color>
+    <color name="caldroid_light_red">#FF0000</color>
+
+
+    <color name="col_producttitle">#555555</color>
+    <color name="col_brandname">#888888</color>
 </resources>

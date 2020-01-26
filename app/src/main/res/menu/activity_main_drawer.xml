@@ -1,34 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group>
-        <item
-            android:id="@+id/nav_aboutus"
-            android:icon="@drawable/ic_info_black_24dp"
-            android:title="About Wash Mania" />
+    <item android:title="Account">
+        <menu>
+            <item
+                    android:id="@+id/nav_myprofile"
+                    android:icon="@drawable/ic_person_black_24dp"
+                    android:title="Edit Profile" />
 
-        <item
-            android:id="@+id/nav_feedback"
-            android:icon="@drawable/ic_feedback_black_24dp"
-            android:title="Post Your Feedback" />
+            <item
+                    android:id="@+id/nav_address"
+                    android:icon="@drawable/ic_location_on_black_24dp"
+                    android:title="Add Address" />
 
-        <item
-            android:id="@+id/nav_contacts"
-            android:icon="@drawable/ic_contacts_black_24dp"
-            android:title="Our Contacts" />
+            <item
+                    android:id="@+id/nav_myorders"
+                    android:icon="@drawable/ic_assignment_black_24dp"
+                    android:title="My Orders" />
 
-        <item
-            android:id="@+id/nav_shareapp"
-            android:icon="@drawable/ic_share_black_24dp"
-            android:title="Share App" />
-
-        <item
-            android:id="@+id/nav_rateapp"
-            android:icon="@drawable/ic_star_black_24dp"
-            android:title="Rate App" />
-    </group>
+            <item
+                    android:id="@+id/nav_changepass"
+                    android:icon="@drawable/ic_vpn_key_black_24dp"
+                    android:title="Change Password" />
+        </menu>
+    </item>
 
     <item android:title="Others">
         <menu>
+            <item
+                    android:id="@+id/nav_aboutus"
+                    android:icon="@drawable/ic_info_black_24dp"
+                    android:title="About Wash Mania" />
+
+            <item
+                    android:id="@+id/nav_feedback"
+                    android:icon="@drawable/ic_feedback_black_24dp"
+                    android:title="Post Your Feedback" />
+
+            <item
+                    android:id="@+id/nav_contacts"
+                    android:icon="@drawable/ic_contacts_black_24dp"
+                    android:title="Our Contacts" />
+
+            <item
+                    android:id="@+id/nav_shareapp"
+                    android:icon="@drawable/ic_share_black_24dp"
+                    android:title="Share App" />
+
+            <item
+                    android:id="@+id/nav_rateapp"
+                    android:icon="@drawable/ic_star_black_24dp"
+                    android:title="Rate App" />
             <item
                 android:id="@+id/nav_terms"
                 android:icon="@drawable/ic_help_black_24dp"
@@ -61,27 +82,10 @@
                 android:title="Order Cancellation" />
         </menu>
     </item>
+    <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_power_settings_new_black_24dp"
+            android:title="Log Out" />
 
-    <item android:title="Account">
-        <menu>
-            <item
-                android:id="@+id/nav_myprofile"
-                android:icon="@drawable/ic_person_black_24dp"
-                android:title="Edit Profile" />
 
-            <item
-                android:id="@+id/nav_myorders"
-                android:icon="@drawable/ic_assignment_black_24dp"
-                android:title="My Orders" />
-
-            <item
-                android:id="@+id/nav_changepass"
-                android:icon="@drawable/ic_vpn_key_black_24dp"
-                android:title="Change Password" />
-            <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_power_settings_new_black_24dp"
-                android:title="Log Out" />
-        </menu>
-    </item>
 </menu>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/tv_productname"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_width="0dp"
+                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:text="asdasda"
+                    android:layout_height="wrap_content"/>
+
+            <LinearLayout android:layout_width="0dp"
+                          android:orientation="horizontal"
+                          android:layout_weight="1"
+                          android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/tv_qty"
+                        android:layout_width="0dp"
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/black"
+                        android:layout_weight=".7"
+                        android:gravity="center"
+                        android:text="asda"
+                        android:layout_height="wrap_content"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_weight=".2"
+                        android:gravity="center"
+                        android:text="X"
+                        android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="0dp"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/black"
+
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="asdasda"
+                    android:layout_height="wrap_content"/>
+            <TextView
+                    android:id="@+id/tv_subtotal"
+                    android:text="asdasda"
+                    android:layout_width="0dp"
+                    android:textSize="@dimen/_12sdp"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimaryDark1"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

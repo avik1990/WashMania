@@ -1,21 +1,23 @@
-
 @file:JvmName("Utility")
 @file:JvmMultifileClass
 package com.app.washmania.others
 
 import android.app.Activity
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
-import android.provider.ContactsContract.Directory.PACKAGE_NAME
 import android.text.TextUtils
+import android.util.Log
 import android.util.Patterns
 import android.view.Gravity
 import android.widget.Toast
 import com.app.washmania.*
-import com.app.washmania.others.Preference.get_contactNo
-import com.app.washmania.others.Preference.getisVerified
+import com.app.washmania.others.WMPreference.get_contactNo
+import com.app.washmania.others.WMPreference.getisVerified
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.prefs.Preferences
 
 object Utility {
 
@@ -98,7 +100,7 @@ object Utility {
             shareAll(mContext, "", "", mContext.resources.getString(R.string.share_pkg) + PACKAGE_NAME + "&hl=en")
         }
 
-        /*if (id == R.id.nav_feedback) {
+        if (id == R.id.nav_feedback) {
             if (cd!!.isConnected()) {
                 if (mContext !is Feedbackactivity) {
                     val profileintent = Intent(mContext, Feedbackactivity::class.java)
@@ -107,7 +109,7 @@ object Utility {
             } else {
                 showToastShort(mContext, "No Internet")
             }
-        }*/
+        }
         if (id == R.id.nav_rateapp) {
             val appPackageName = mContext.packageName // getPackageName() from Context or Activity object
             try {
@@ -143,9 +145,9 @@ object Utility {
             }
         }*/
 
-        /*if (id == R.id.nav_myprofile) {
-            if (cd!!.isConnected()) {
-                if (Preferences.getisVerified(mContext)) {
+        if (id == R.id.nav_myprofile) {
+            if (cd!!.isConnected) {
+                if (WMPreference.getisVerified(mContext)) {
                     if (mContext !is MyProfileActivity) {
                         val profileintent = Intent(mContext, MyProfileActivity::class.java)
                         mContext.startActivity(profileintent)
@@ -156,11 +158,11 @@ object Utility {
             } else {
                 showToastShort(mContext, "No Internet")
             }
-        }*/
+        }
 
-        /*if (id == R.id.nav_myorders) {
-            if (cd!!.isConnected()) {
-                if (Preferences.getisVerified(mContext)) {
+        if (id == R.id.nav_myorders) {
+            if (cd!!.isConnected) {
+                if (getisVerified(mContext)) {
                     if (mContext !is MyOrderActivity) {
                         val profileintent = Intent(mContext, MyOrderActivity::class.java)
                         mContext.startActivity(profileintent)
@@ -171,10 +173,10 @@ object Utility {
             } else {
                 showToastShort(mContext, "No Internet")
             }
-        }*/
+        }
 
-        /* if (id == R.id.nav_changepass) {
-             if (cd!!.isConnected()) {
+         if (id == R.id.nav_changepass) {
+             if (cd!!.isConnected) {
                  if (getisVerified(mContext)) {
                      if (mContext !is ChangePasswordActivity) {
                          val profileintent = Intent(mContext, ChangePasswordActivity::class.java)
@@ -186,7 +188,24 @@ object Utility {
              } else {
                  showToastShort(mContext, "No Internet")
              }
-         }*/
+         }
+
+        if (id == R.id.nav_address) {
+            if (cd!!.isConnected) {
+                if (getisVerified(mContext)) {
+                    if (mContext !is ChangeLocationActivity) {
+                        val profileintent = Intent(mContext, ChangeLocationActivity::class.java)
+                        mContext.startActivity(profileintent)
+                    }
+                } else {
+                    showToastShort(mContext, "Not Accessible by Guest")
+                }
+            } else {
+                showToastShort(mContext, "No Internet")
+            }
+        }
+
+
         if (id == R.id.nav_logout) {
             showLogoutAlert(mContext, "Are you sure?", "Logout")
         }
@@ -239,5 +258,26 @@ object Utility {
         val settings = mContext.getSharedPreferences("Kppref", Context.MODE_PRIVATE)
         settings.edit().clear().apply()
         // db.drop_all_data();
+    }
+
+
+    fun getFormattedDate(normal_date: String): String {
+        Log.d("DateFormat", normal_date)
+        var formated_date = ""
+        if (normal_date.length > 6) {
+            val originalFormat = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
+           // originalFormat.timeZone = TimeZone.getTimeZone("GMT")
+            val targetFormat = SimpleDateFormat("yyyy-MM-dd")
+            val date: Date
+            try {
+                date = originalFormat.parse(normal_date.trim())
+                formated_date = targetFormat.format(date)
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+        } else {
+            formated_date = normal_date
+        }
+        return formated_date
     }
 }

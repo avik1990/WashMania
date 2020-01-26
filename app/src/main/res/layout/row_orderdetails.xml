@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cv"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        card_view:cardCornerRadius="5dp">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_toLeftOf="@+id/button"
+                            android:layout_centerVertical="true"
+                            android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/tvCatName"
+                        android:layout_marginTop="@dimen/_7sdp"
+                        android:layout_marginBottom="@dimen/_7sdp"
+                        android:textSize="@dimen/_13sdp"
+                        android:text="sdjfcdsfgsdfgvsdfsd"
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_marginRight="@dimen/_3sdp"
+                        android:layout_toLeftOf="@+id/tvPrice"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"/>
+
+                <TextView
+                        android:id="@+id/tvPrice"
+                        android:layout_marginTop="@dimen/_7sdp"
+                        android:layout_marginBottom="@dimen/_7sdp"
+                        android:textSize="@dimen/_13sdp"
+                        android:layout_alignParentRight="true"
+                        android:text="12"
+                        android:textColor="@color/colorPrimaryDark1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"/>
+
+
+            </RelativeLayout>
+
+
+            <!--My dropdown Button -->
+            <RelativeLayout
+                    android:id="@+id/button"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="end"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center">
+
+                <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/_17sdp"
+                        android:src="@drawable/ic_arrow_down_lue"
+                        android:layout_height="@dimen/_17sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:layout_alignParentRight="false"
+                        android:layout_alignParentEnd="false"/>
+            </RelativeLayout>
+        </RelativeLayout>
+        <!--The layout below is my ExpandableLayout -->
+        <LinearLayout
+                android:id="@+id/expandableLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

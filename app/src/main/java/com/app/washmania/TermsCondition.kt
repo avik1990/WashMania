@@ -13,6 +13,7 @@ import com.app.washmania.others.CircularTextView
 import com.app.washmania.others.ConnectionDetector
 import com.app.washmania.others.Utility.CallContactNo
 import com.app.washmania.others.Utility.showToastShort
+import com.app.washmania.others.WMPreference
 import com.app.washmania.retrofit.api.ApiServices
 import retrofit2.Call
 import retrofit2.Callback
@@ -82,11 +83,16 @@ class TermsCondition : BaseActivity(), View.OnClickListener {
                 finish()
                 onBackPressed()
             } else if (v === iv_cart) {
-                /*val i = Intent(mContext, ProductCart::class.java)
+                val i = Intent(mContext, ProductCart::class.java)
                 i.putExtra("From", "Dashboard")
-                startActivity(i)*/
+                startActivity(i)
             }
         }
+
+    override fun onResume() {
+        super.onResume()
+        tv_cartcount.text = WMPreference.get_Cartount(mContext)
+    }
 
         private fun parsejson() {
             pDialog.show()

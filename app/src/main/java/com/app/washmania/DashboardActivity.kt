@@ -16,16 +16,17 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.app.washmania.adapter.NewsAdapter
+import com.app.washmania.adapter.CategoryAdapter
 import com.app.washmania.adapter.SliderPagerAdapter
 import com.app.washmania.model.Banners
 import com.app.washmania.model.Category
 import com.app.washmania.others.BaseActivity
-import com.app.washmania.others.Preference.get_firstName
-import com.app.washmania.others.Preference.getisVerified
-import com.app.washmania.others.Preference.set_checkClicked
-import com.app.washmania.others.Utility
+import com.app.washmania.others.CircularTextView
+import com.app.washmania.others.WMPreference.get_firstName
+import com.app.washmania.others.WMPreference.getisVerified
+import com.app.washmania.others.WMPreference.set_checkClicked
 import com.app.washmania.others.Utility.openNavDrawer
+import com.app.washmania.others.WMPreference
 import com.app.washmania.retrofit.api.ApiServices
 import com.facebook.drawee.backends.pipeline.Fresco
 import kotlinx.android.synthetic.main.activity_dashboard.*
@@ -34,14 +35,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.ArrayList
+import java.util.*
+import java.util.prefs.Preferences
 
-class DashboardActivity : BaseActivity(), NewsAdapter.onRowItemSelected,
+class DashboardActivity : BaseActivity(), CategoryAdapter.onRowItemSelected,
     NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     var headerView: View? = null
     lateinit var context: Context
-    lateinit var newsAdapter: NewsAdapter
+    lateinit var newsAdapter: CategoryAdapter
     var navigationView: NavigationView? = null
     var btn_menu: ImageView? = null
     internal var banners: Banners? = null
@@ -51,6 +53,8 @@ class DashboardActivity : BaseActivity(), NewsAdapter.onRowItemSelected,
     var dots: Array<ImageView?>? = null
     lateinit var sliderPagerAdapter: SliderPagerAdapter
     internal var getCategory: Category? = null
+    lateinit var tv_cartcount: CircularTextView
+    lateinit var iv_cart: ImageView
 
     companion object {
         val CLASS_NAME = "DashboardActivity"
@@ -64,16 +68,36 @@ class DashboardActivity : BaseActivity(), NewsAdapter.onRowItemSelected,
         pDialog.setCanceledOnTouchOutside(false)
         pDialog.setCancelable(false)
         navigationView = findViewById(R.id.nav_view)
+        tv_cartcount = findViewById(R.id.tv_cartcount) as CircularTextView
+        val colorStr = resources.getString(R.string.green_color)
+        tv_cartcount.setSolidColor(colorStr)
+        iv_cart = findViewById(R.id.iv_cart)
+        iv_cart.setOnClickListener(this)
         btn_menu = findViewById(R.id.btn_menu)
         navigationView!!.setNavigationItemSelectedListener(this)
         navigationView!!.itemIconTintList = null
         btn_menu!!.setOnClickListener(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        tv_cartcount.text = WMPreference.get_Cartount(context)
+        if (!WMPreference.isgenerateUniqueKey(context)) {
+            generateUniqueId()
+            WMPreference.setUniqueKey(context, true)
+        }
+    }
 
 
+    private fun generateUniqueId() {
+        val rand = Random()
+        val uniqueId = System.currentTimeMillis().toString() + "" + rand.nextInt(500)
+        Log.d("uniqueId", uniqueId)
+        WMPreference.set_UniqueId(context, uniqueId)
     }
 
     private fun inflateAdapter(listNews: List<Category.CategoryDatum>) {
-        newsAdapter = NewsAdapter(context, listNews, this)
+        newsAdapter = CategoryAdapter(context, listNews, this)
         val mLayoutManager = GridLayoutManager(context, 2)
         rlRecycler.layoutManager = mLayoutManager
         rlRecycler.adapter = newsAdapter
@@ -98,8 +122,8 @@ class DashboardActivity : BaseActivity(), NewsAdapter.onRowItemSelected,
         if (getisVerified(context)) {
             headerView = navigationView!!.inflateHeaderView(R.layout.nav_header_main)
             val txt_name = headerView!!.findViewById(R.id.tv_user_name) as TextView
-            val ivNavDrawer = findViewById(R.id.iv_product_photo) as ImageView
-            txt_name.setText(get_firstName(context))
+            //val ivNavDrawer = findViewById(R.id.iv_product_photo) as ImageView
+            txt_name.text = get_firstName(context)
         } else {
             headerView = navigationView!!.inflateHeaderView(R.layout.nav_header_main_before_login)
             val btn_login = headerView!!.findViewById(R.id.btn_login) as Button
@@ -136,12 +160,17 @@ class DashboardActivity : BaseActivity(), NewsAdapter.onRowItemSelected,
     override fun onClick(v: View?) {
         if (v === btn_menu) {
             drawer_layout.openDrawer(GravityCompat.START)
+        } else if (v === iv_cart) {
+            val i = Intent(context, ProductCart::class.java)
+            i.putExtra("From", "Dashboard")
+            startActivity(i)
         }
     }
 
-    override fun getPosition(id: String) {
+    override fun getPosition(id: String, catName: String) {
         val i = Intent(context, SubCategoryActivity::class.java)
         i.putExtra("cat_id", id)
+        i.putExtra("cat_name", catName)
         startActivity(i)
     }
 
@@ -168,7 +197,7 @@ class DashboardActivity : BaseActivity(), NewsAdapter.onRowItemSelected,
                             for (i in 0 until banners!!.bannerData.size) {
                                 slider_image_list!!.add(banners!!.bannerData[i].bannerPhoto)
                             }
-                            Utility.showToastShort(context, "" + slider_image_list!!.size)
+                            //Utility.showToastShort(context, "" + slider_image_list!!.size)
                             initslider()
                             addBottomDots(0)
                         } else {
@@ -179,6 +208,7 @@ class DashboardActivity : BaseActivity(), NewsAdapter.onRowItemSelected,
                     }
 
                     getCategoryData()
+                    //gvhvghv
                 }
             }
 

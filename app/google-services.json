@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "678971915020",
+    "firebase_url": "https://washmania-d8457.firebaseio.com",
+    "project_id": "washmania-d8457",
+    "storage_bucket": "washmania-d8457.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:678971915020:android:a4c71f6b57080eceb96729",
+        "android_client_info": {
+          "package_name": "com.app.washmania"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "678971915020-17k5kd8efrji71ondhbr9sf8fmtcrve0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8tthEbTnViktwGI6lVGvh9Wh1bXGIXkY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "678971915020-17k5kd8efrji71ondhbr9sf8fmtcrve0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

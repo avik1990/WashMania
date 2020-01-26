@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_3sdp"
+        android:background="@color/white"
+        android:elevation="@dimen/_10sdp"
+        card_view:cardCornerRadius="@dimen/_5sdp">
+
+    <RelativeLayout
+            android:id="@+id/v_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:padding="@dimen/_5sdp"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="10dp">
+
+        <LinearLayout
+                android:id="@+id/llInfo"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/tvOrderId"
+                        android:text="tvOrderId"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/tvPrice"
+                        android:text="tvPrice"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/colorPrimaryDark1"
+                        android:layout_alignParentRight="true"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+            <TextView
+                    android:id="@+id/tvBookedOn"
+                    android:text="tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:id="@+id/tvPaymentMode"
+                    android:text="tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="wrap_content"/>
+            <TextView
+                    android:id="@+id/tvPaymentStatus"
+                    android:text="tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:id="@+id/tvPickuppBoy"
+                    android:text="tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:id="@+id/tvDeliveryStatus"
+                    android:text="tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center_horizontal"
+                android:padding="@dimen/_5sdp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/rounded_corner_btn_register"
+                android:text="Cancel Order"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:layout_below="@+id/llInfo"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13sdp"/>
+        <TextView
+                android:id="@+id/tvCartId"
+                android:text="tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:visibility="gone"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:id="@+id/tvOrderIds"
+                android:text="tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:visibility="gone"
+                android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+
+
+
+

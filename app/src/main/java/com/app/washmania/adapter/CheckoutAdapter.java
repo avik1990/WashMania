@@ -30,11 +30,11 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.MyView
     ConnectionDetector cd;
     private SparseBooleanArray expandState = new SparseBooleanArray();
     HashMap<String, List<MyCart.CartDatum>> hashMap;
-    List<MyCart.CartDatum> listmycart = new ArrayList<>();
-    List<String> listKeys = new ArrayList<>();
-    List<List<MyCart.CartDatum>> listValues = new ArrayList<>();
-    List<Double> listSum = new ArrayList<>();
-    List<MyCart.CartDatum> listValues1 = new ArrayList<>();
+    //List<MyCart.CartDatum> listmycart = new ArrayList<>();
+   // List<String> listKeys = new ArrayList<>();
+    //List<List<MyCart.CartDatum>> listValues = new ArrayList<>();
+    //List<Double> listSum = new ArrayList<>();
+    //List<MyCart.CartDatum> listValues1 = new ArrayList<>();
 
     public CheckoutAdapter(HashMap<String, List<MyCart.CartDatum>> moviesList, Context mContext,List<MyCart.CartDatum> listValues1) {
         this.moviesList = moviesList;
@@ -44,32 +44,31 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.MyView
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         cd = new ConnectionDetector(mContext);
-        this.listValues1=listValues1;
         this.hashMap = moviesList;
         for (int i = 0; i < moviesList.size(); i++) {
             expandState.append(i, false);
         }
 
-        for (Map.Entry<String, List<MyCart.CartDatum>> entry : hashMap.entrySet()) {
+        /*for (Map.Entry<String, List<MyCart.CartDatum>> entry : hashMap.entrySet()) {
             //System.out.println(entry.getKey()+" : "+entry.getValue());
             Log.e("VAluess", entry.getKey() + " : " + entry.getValue().size());
             listKeys.add(entry.getKey());
             for (int j = 0; j < listKeys.size(); j++) {
                 listValues.add(entry.getValue());
             }
-        }
+        }*/
 
 
 
 
-        for (int i = 0; i < listKeys.size(); i++) {
+        /*for (int i = 0; i < listKeys.size(); i++) {
             double sum = 0;
             for (int k = 0; k < listValues.get(i).size(); k++) {
                 sum = sum + Double.parseDouble(listValues.get(i).get(k).getUnitPrice());
             }
             listSum.add(sum);
             Log.e("sum", "" + sum);
-        }
+        }*/
 
     }
 
@@ -134,25 +133,26 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.MyView
         });
 
         //holder.tvCatName.setText(listKeys.get(position));
-        holder.tvCatName.setText(listKeys.get(position));
-        holder.tvPrice.setText("\u20B9" + " " + listSum.get(position));
+        holder.tvCatName.setText(getHashMapKeyFromIndex(hashMap, position));
         holder.expandableLayout.removeAllViews();
-
-        Log.e("SIZES", "" + listValues.get(position).size());
-        for (int j = 0; j < listValues.get(position).size(); j++) {
-            Log.e("BAL", listValues.get(position).get(j).getDress_name());
+        double sum = 0;
+        for (int i = 0; i < hashMap.get(getHashMapKeyFromIndex(hashMap, position)).size(); i++) {
             View sublayout = View.inflate(mContext, R.layout.explayout, null);
             TextView tv_productname = sublayout.findViewById(R.id.tv_productname);
             TextView tv_qty = sublayout.findViewById(R.id.tv_qty);
             TextView tv_price = sublayout.findViewById(R.id.tv_price);
             TextView tv_subtotal = sublayout.findViewById(R.id.tv_subtotal);
 
-            tv_productname.setText(listValues.get(position).get(j).getDress_name());
-            tv_qty.setText(listValues.get(position).get(j).getQuantity() + " pcs");
-            tv_price.setText("\u20B9" + listValues.get(position).get(j).getUnitPrice());
-            tv_subtotal.setText("\u20B9" + listValues.get(position).get(j).getSubtotal());
+            tv_productname.setText(hashMap.get(getHashMapKeyFromIndex(hashMap, position)).get(i).getDress_name());
+            tv_qty.setText(hashMap.get(getHashMapKeyFromIndex(hashMap, position)).get(i).getQuantity() + " pcs");
+            tv_price.setText("\u20B9" + hashMap.get(getHashMapKeyFromIndex(hashMap, position)).get(i).getUnitPrice());
+            tv_subtotal.setText("\u20B9" + hashMap.get(getHashMapKeyFromIndex(hashMap, position)).get(i).getSubtotal());
+            sum = sum + Double.parseDouble(hashMap.get(getHashMapKeyFromIndex(hashMap, position)).get(i).getSubtotal());
+            holder.tvPrice.setText("\u20B9" + " " +sum);
             holder.expandableLayout.addView(sublayout);
         }
+
+
     }
 
     @Override
@@ -160,5 +160,17 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.MyView
         return moviesList.size();
     }
 
+    public static String getHashMapKeyFromIndex(HashMap hashMap, int index) {
 
+        String key = null;
+        HashMap<String, Object> hs = hashMap;
+        int pos = 0;
+        for (Map.Entry<String, Object> entry : hs.entrySet()) {
+            if (index == pos) {
+                key = entry.getKey();
+            }
+            pos++;
+        }
+        return key;
+    }
 }
