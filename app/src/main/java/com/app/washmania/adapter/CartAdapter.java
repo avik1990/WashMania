@@ -100,20 +100,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.tv_id.setText(movie.getCartId());
         holder.et_qty.setText(String.valueOf(movie.quantity));
 
-        //holder.tv_packetsize.setText(movie.packetSize);
         holder.tv_price.setText("\u20B9" + " " + String.valueOf(movie.unitPrice));
-        //holder.tv_quantity.setText("Packet      : " + String.valueOf(movie.quantity) + " Pc(s)");
-        /*if (!movie.discount.equalsIgnoreCase("0")) {
-            holder.tv_price.setVisibility(View.VISIBLE);
-            holder.tv_discount.setVisibility(View.VISIBLE);
-            //holder.tv_price.setText("\u20B9" + " " + movie.original_price + " " + movie.discount + " off");
-            holder.tv_discount.setText(movie.discount + "% off");
-            holder.tv_price.setText("\u20A8" + ". " + movie.original_price);
-            holder.tv_price.setPaintFlags(holder.tv_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        } else {
-            holder.tv_price.setVisibility(View.GONE);
-            holder.tv_discount.setVisibility(View.GONE);
-        }*/
 
         holder.tv_position.setText(movie.getCartId());
 
@@ -182,7 +169,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             public void onClick(View v) {
                 if (cd.isConnected()) {
                     if (holder.iv_sub.isPressed()) {
-                        if (holder.et_qty.getText().toString().equals("1")) {
+                        if (holder.et_qty.getText().toString().equals("0")) {
                             return;
                         }
                         if (!holder.et_qty.getText().toString().isEmpty()) {

@@ -74,7 +74,18 @@ public class OrderDetailsModel {
         @SerializedName("subtotal")
         @Expose
         private String subtotal;
+        @SerializedName("dress_for")
+        @Expose
+        private String dress_for;
 
+
+        public String getDress_for() {
+            return dress_for;
+        }
+
+        public void setDress_for(String dress_for) {
+            this.dress_for = dress_for;
+        }
 
         public String getDress_category() {
             return dress_category;

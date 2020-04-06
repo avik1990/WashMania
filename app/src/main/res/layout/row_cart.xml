@@ -110,8 +110,7 @@
                             android:text="Per piece"
                             android:layout_gravity="center_horizontal"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_11sdp"
-                    />
+                            android:textSize="@dimen/_11sdp" />
 
 
                 </LinearLayout>

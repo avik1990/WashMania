@@ -187,7 +187,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             public void onClick(View v) {
                 if (cd.isConnected()) {
                     if (holder.iv_sub.isPressed()) {
-                        if (holder.et_qty.getText().toString().equals("-1")) {
+                        if (holder.et_qty.getText().toString().equals("0")) {
                             return;
                         }
 

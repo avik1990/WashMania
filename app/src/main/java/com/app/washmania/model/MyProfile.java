@@ -70,6 +70,17 @@ public class MyProfile {
         @SerializedName("zip")
         @Expose
         private String zip;
+        @SerializedName("landmark")
+        @Expose
+        private String landmark;
+
+        public String getLandmark() {
+            return landmark;
+        }
+
+        public void setLandmark(String landmark) {
+            this.landmark = landmark;
+        }
 
         public String getUserId() {
             return userId;

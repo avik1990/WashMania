@@ -373,7 +373,9 @@ class PlaceOrderActivity : BaseActivity(), View.OnClickListener {
             "",
             tv_flatno.text.toString(),
             tv_pickupinstruction.text.toString(),
-            Utility.getFormattedDate(stDate), stTime
+            Utility.getFormattedDate(stDate),
+            stTime,
+            registration!!.userData[0].landmark
         )
 
         call.enqueue(object : Callback<BaseResponse> {

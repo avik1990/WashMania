@@ -66,7 +66,7 @@ interface ApiServices {
     fun UserForgotPassword(@Query("email") email: String): Call<BaseResponse>
 
     @GET("service.php?action=post_feedback")
-    abstract fun PostFeedback(
+     fun PostFeedback(
         @Query("user_id") user_id: String, @Query("name") name: String, @Query("email") email: String, @Query(
             "phone"
         ) phone: String, @Query("comment") comment: String
@@ -110,7 +110,8 @@ interface ApiServices {
         @Query("address") address: String,
         @Query("state") state: String,
         @Query("city") city: String,
-        @Query("zip") zip: String
+        @Query("zip") zip: String,
+        @Query("landmark") user_landmark: String
     ): Call<BaseResponse>
 
     @GET("service.php?action=change_password")
@@ -153,7 +154,8 @@ interface ApiServices {
         @Query("floor") floor: String,
         @Query("pickup_instruction") pickup_instruction: String,
         @Query("pickup_date") pickup_date: String,
-        @Query("pickup_time") pickup_time: String
+        @Query("pickup_time") pickup_time: String,
+        @Query("landmark") landmark: String
     ): Call<BaseResponse>
 
 

@@ -75,7 +75,7 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
     String user_state;
     String user_city;
     String user_zipcode;
-
+    String user_landmark="";
     CircularTextView tv_cartcount;
     ImageView iv_cart, btn_back, btn_menu;
     FloatingActionButton fabLocation;
@@ -86,6 +86,7 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
     Location location;
     Geocoder geocoder;
     List<Address> addresses;
+    EditText et_landmark;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,6 +163,7 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
                 finishAffinity();
             }
         });
+        et_landmark= findViewById(R.id.et_landmark);
         et_firstname = findViewById(R.id.et_firstname);
         et_lastname = findViewById(R.id.et_lastname);
         et_phoneno = findViewById(R.id.et_phoneno);
@@ -289,6 +291,7 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
             user_state = et_state.getText().toString().trim();
             user_city = et_city.getText().toString().trim();
             user_zipcode = et_zipcode.getText().toString().trim();
+            user_landmark= et_landmark.getText().toString().trim();
 
             UpdateUserDetails();
         }
@@ -415,6 +418,8 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
         et_state.setText(registration.getUserData().get(0).getState());
         et_city.setText(registration.getUserData().get(0).getCity());
         et_zipcode.setText(registration.getUserData().get(0).getZip());
+        et_landmark.setText(registration.getUserData().get(0).getLandmark());
+
     }
 
 
@@ -465,7 +470,7 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
         ApiServices redditAPI;
         redditAPI = retrofit.create(ApiServices.class);
 
-        Call<BaseResponse> call = redditAPI.UserUpdateDetails(WMPreference.INSTANCE.get_userId(mContext), user_firstname, user_lastname, user_phoneno, user_email, user_address, user_state, user_city, user_zipcode);
+        Call<BaseResponse> call = redditAPI.UserUpdateDetails(WMPreference.INSTANCE.get_userId(mContext), user_firstname, user_lastname, user_phoneno, user_email, user_address, user_state, user_city, user_zipcode,user_landmark);
         call.enqueue(new Callback<BaseResponse>() {
 
             @Override

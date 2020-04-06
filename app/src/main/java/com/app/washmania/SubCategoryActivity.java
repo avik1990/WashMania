@@ -39,7 +39,7 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
     FragmentWomen womenFragment;
     FragmentKids kidFragment;
     CircularTextView tv_cartcount;
-    String[] tabTitle = {"Men", "Women", "Kids"};
+    String[] tabTitle = {"Men", "Women", "Others"};
     //int[] unreadCount = {12, 0, 1};
     Context mContext;
     String catID = "", catName = "";
@@ -129,7 +129,7 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
         bundle.putString("catId", catID);
         adapter.addFragment(menFragment, "Men");
         adapter.addFragment(womenFragment, "Women");
-        adapter.addFragment(kidFragment, "Kids");
+        adapter.addFragment(kidFragment, "Others");
         menFragment.setArguments(bundle);
         womenFragment.setArguments(bundle);
         kidFragment.setArguments(bundle);
