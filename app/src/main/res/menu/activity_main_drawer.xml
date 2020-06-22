@@ -21,6 +21,11 @@
                     android:id="@+id/nav_changepass"
                     android:icon="@drawable/ic_vpn_key_black_24dp"
                     android:title="Change Password" />
+
+            <item
+                    android:id="@+id/nav_customercare"
+                    android:icon="@drawable/ic_customer_care"
+                    android:title="Customer Care" />
         </menu>
     </item>
 
@@ -34,7 +39,7 @@
             <item
                     android:id="@+id/nav_feedback"
                     android:icon="@drawable/ic_feedback_black_24dp"
-                    android:title="Post Your Feedback" />
+                    android:title="Post Your Enquiry" />
 
             <item
                     android:id="@+id/nav_contacts"
@@ -51,35 +56,35 @@
                     android:icon="@drawable/ic_star_black_24dp"
                     android:title="Rate App" />
             <item
-                android:id="@+id/nav_terms"
-                android:icon="@drawable/ic_help_black_24dp"
-                android:title="Terms &amp; Conditions" />
+                    android:id="@+id/nav_terms"
+                    android:icon="@drawable/ic_help_black_24dp"
+                    android:title="Terms &amp; Conditions" />
 
             <item
-                android:id="@+id/nav_privacypolicy"
-                android:icon="@drawable/ic_lock_black_24dp"
-                android:title="Privacy Policy" />
+                    android:id="@+id/nav_privacypolicy"
+                    android:icon="@drawable/ic_lock_black_24dp"
+                    android:title="Privacy Policy" />
 
             <item
-                android:id="@+id/nav_shipping"
-                android:icon="@drawable/shipping"
-                android:visible="false"
-                android:title="Shipping &amp; Delivery" />
+                    android:id="@+id/nav_shipping"
+                    android:icon="@drawable/shipping"
+                    android:title="Shipping &amp; Delivery"
+                    android:visible="false" />
             <item
-                android:id="@+id/nav_refund"
-                android:icon="@drawable/refund"
-                android:visible="false"
-                android:title="Refund &amp; Return" />
+                    android:id="@+id/nav_refund"
+                    android:icon="@drawable/refund"
+                    android:title="Refund &amp; Return"
+                    android:visible="false" />
             <item
-                android:id="@+id/nav_replacement"
-                android:icon="@drawable/ic_return"
-                android:visible="false"
-                android:title="Replacement" />
+                    android:id="@+id/nav_replacement"
+                    android:icon="@drawable/ic_return"
+                    android:title="Replacement"
+                    android:visible="false" />
             <item
-                android:id="@+id/nav_ordercancellation"
-                android:visible="false"
-                android:icon="@drawable/replacement"
-                android:title="Order Cancellation" />
+                    android:id="@+id/nav_ordercancellation"
+                    android:icon="@drawable/replacement"
+                    android:title="Order Cancellation"
+                    android:visible="false" />
         </menu>
     </item>
     <item

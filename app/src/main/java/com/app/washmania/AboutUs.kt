@@ -61,6 +61,7 @@ class AboutUs : BaseActivity(), View.OnClickListener {
         tv_desc = findViewById(R.id.tv_desc)
         iv_cart = findViewById(R.id.iv_cart)
         iv_cart.setOnClickListener(this)
+
         if (cd.isConnected) {
             parsejson()
         } else {

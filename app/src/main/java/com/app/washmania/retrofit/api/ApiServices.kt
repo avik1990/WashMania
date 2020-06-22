@@ -7,8 +7,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import com.app.washmania.model.CartDeleteAction
 
-
-
 interface ApiServices {
 
     @GET("service.php?action=about_us")
@@ -31,23 +29,35 @@ interface ApiServices {
 
     @GET("service.php?action=update_item")
     fun UpdateMyCart(
-        @Query("user_id") user_id: String, @Query("cart_id") cart_id: String, @Query("unique_id") unique_id: String, @Query(
+        @Query("user_id") user_id: String,
+        @Query("cart_id") cart_id: String,
+        @Query("unique_id") unique_id: String,
+        @Query(
             "quantity"
-        ) quantity: String, @Query("isCartAdd") isCartAdd: String
+        ) quantity: String,
+        @Query("isCartAdd") isCartAdd: String
     ): Call<CartDeleteAction>
 
     @GET("service.php?action=add_to_cart")
     fun AddToCart(
-        @Query("user_id") user_id: String,  @Query("unique_id") unique_id: String, @Query(
-            "quantity") quantity: String, @Query("isCartAdd") isCartAdd: String, @Query("dress_id") dress_id: String
+        @Query("user_id") user_id: String,
+        @Query("unique_id") unique_id: String,
+        @Query(
+            "quantity"
+        ) quantity: String,
+        @Query("isCartAdd") isCartAdd: String,
+        @Query("dress_id") dress_id: String
     ): Call<CartAdditionModel>
 
 
     @GET("service.php?action=dress_list")
     fun GetProductListResponse(
-        @Query("category_id") category_id: String, @Query("dress_for") subcategory_id: String, @Query(
+        @Query("category_id") category_id: String,
+        @Query("dress_for") subcategory_id: String,
+        @Query(
             "user_id"
-        ) user_id: String, @Query("unique_id") unique_id: String
+        ) user_id: String,
+        @Query("unique_id") unique_id: String
     ): Call<ProductsMod>
 
 
@@ -56,7 +66,10 @@ interface ApiServices {
 
     @GET("service.php?action=login")
     fun UserLogin(
-        @Query("phone") phone: String, @Query("password") password: String, @Query("flag") flag: String, @Query(
+        @Query("phone") phone: String,
+        @Query("password") password: String,
+        @Query("flag") flag: String,
+        @Query(
             "unique_id"
         ) unique_id: String
     ): Call<LoginResponse>
@@ -67,11 +80,20 @@ interface ApiServices {
 
     @GET("service.php?action=post_feedback")
     abstract fun PostFeedback(
-        @Query("user_id") user_id: String, @Query("name") name: String, @Query("email") email: String, @Query(
+        @Query("user_id") user_id: String,
+        @Query("name") name: String,
+        @Query("email") email: String,
+        @Query(
             "phone"
-        ) phone: String, @Query("comment") comment: String
+        ) phone: String,
+        @Query("comment") comment: String
     ): Call<CartDeleteAction>
 
+    @GET("service.php?action=customer_care")
+    abstract fun PostCustomerCare(
+        @Query("user_id") user_id: String,
+        @Query("phone") phone: String
+    ): Call<CartDeleteAction>
 
     @GET("service.php?action=registration")
     fun UserRegistration(
@@ -92,7 +114,11 @@ interface ApiServices {
     fun VerifyZipCode(@Query("zip") zip: String): Call<ZipCodeVerify>
 
     @GET("service.php?action=otp_validation")
-    fun VerifyOTP(@Query("otp") otp: String, @Query("user_id") user_id: String, @Query("unique_id") unique_id: String): Call<LoginResponse>
+    fun VerifyOTP(
+        @Query("otp") otp: String,
+        @Query("user_id") user_id: String,
+        @Query("unique_id") unique_id: String
+    ): Call<LoginResponse>
 
     @GET("service.php?action=my_account")
     fun GetMYProfile(@Query("user_id") user_id: String): Call<MyProfile>
@@ -122,10 +148,17 @@ interface ApiServices {
     ): Call<BaseResponse>
 
     @GET("service.php?action=view_cart")
-    fun GetMyCart(@Query("user_id") user_id: String, @Query("unique_id") unique_id: String): Call<MyCart>
+    fun GetMyCart(
+        @Query("user_id") user_id: String,
+        @Query("unique_id") unique_id: String
+    ): Call<MyCart>
 
     @GET("service.php?action=delete_item")
-    fun GetCartDeleteAction(@Query("user_id") user_id: String, @Query("cart_id") cart_id: String, @Query("unique_id") unique_id: String): Call<CartDeleteAction>
+    fun GetCartDeleteAction(
+        @Query("user_id") user_id: String,
+        @Query("cart_id") cart_id: String,
+        @Query("unique_id") unique_id: String
+    ): Call<CartDeleteAction>
 
     @GET("service.php?action=my_orders")
     fun GetOrderListResponse(
@@ -158,10 +191,17 @@ interface ApiServices {
 
 
     @GET("service.php?action=cancel_order")
-    fun GetCancelOrder(@Query("user_id") user_id: String, @Query("cart_id") cart_id: String, @Query("unique_id") unique_id: String): Call<CartDeleteAction>
+    fun GetCancelOrder(
+        @Query("user_id") user_id: String,
+        @Query("cart_id") cart_id: String,
+        @Query("unique_id") unique_id: String
+    ): Call<CartDeleteAction>
 
     @GET("service.php?action=order_details")
-    fun GetOrderDetails(@Query("user_id") user_id: String, @Query("order_id") order_id: String): Call<OrderDetailsModel>
+    fun GetOrderDetails(
+        @Query("user_id") user_id: String,
+        @Query("order_id") order_id: String
+    ): Call<OrderDetailsModel>
 
 
 }

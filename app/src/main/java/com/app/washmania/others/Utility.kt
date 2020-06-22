@@ -1,5 +1,6 @@
 @file:JvmName("Utility")
 @file:JvmMultifileClass
+
 package com.app.washmania.others
 
 import android.app.Activity
@@ -39,17 +40,17 @@ object Utility {
             }
         }
 
-         if (id == R.id.nav_privacypolicy) {
-             if (cd!!.isConnected()) {
-                 if (mContext !is PrivacyActivity) {
-                     val profileintent = Intent(mContext, PrivacyActivity::class.java)
-                     mContext.startActivity(profileintent)
-                 }
-             } else {
-                 showToastShort(mContext, "No Internet")
-             }
-             //showLogoutAlert(mContext, "Are you sure?", "Logout");
-         }
+        if (id == R.id.nav_privacypolicy) {
+            if (cd!!.isConnected()) {
+                if (mContext !is PrivacyActivity) {
+                    val profileintent = Intent(mContext, PrivacyActivity::class.java)
+                    mContext.startActivity(profileintent)
+                }
+            } else {
+                showToastShort(mContext, "No Internet")
+            }
+            //showLogoutAlert(mContext, "Are you sure?", "Logout");
+        }
 
         if (id == R.id.nav_terms) {
             if (cd!!.isConnected()) {
@@ -97,7 +98,12 @@ object Utility {
         }*/
         if (id == R.id.nav_shareapp) {
             PACKAGE_NAME = mContext.applicationContext.packageName
-            shareAll(mContext, "", "", mContext.resources.getString(R.string.share_pkg) + PACKAGE_NAME + "&hl=en")
+            shareAll(
+                mContext,
+                "",
+                "",
+                mContext.resources.getString(R.string.share_pkg) + PACKAGE_NAME + "&hl=en"
+            )
         }
 
         if (id == R.id.nav_feedback) {
@@ -111,9 +117,15 @@ object Utility {
             }
         }
         if (id == R.id.nav_rateapp) {
-            val appPackageName = mContext.packageName // getPackageName() from Context or Activity object
+            val appPackageName =
+                mContext.packageName // getPackageName() from Context or Activity object
             try {
-                mContext.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
+                mContext.startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=$appPackageName")
+                    )
+                )
             } catch (anfe: android.content.ActivityNotFoundException) {
                 mContext.startActivity(
                     Intent(
@@ -153,7 +165,8 @@ object Utility {
                         mContext.startActivity(profileintent)
                     }
                 } else {
-                    showToastShort(mContext, "Not Accessible by Guest")
+                    val profileintent = Intent(mContext, LoginActivity::class.java)
+                    mContext.startActivity(profileintent)
                 }
             } else {
                 showToastShort(mContext, "No Internet")
@@ -168,27 +181,29 @@ object Utility {
                         mContext.startActivity(profileintent)
                     }
                 } else {
-                    showToastShort(mContext, "Not Accessible by Guest")
+                    val profileintent = Intent(mContext, LoginActivity::class.java)
+                    mContext.startActivity(profileintent)
                 }
             } else {
                 showToastShort(mContext, "No Internet")
             }
         }
 
-         if (id == R.id.nav_changepass) {
-             if (cd!!.isConnected) {
-                 if (getisVerified(mContext)) {
-                     if (mContext !is ChangePasswordActivity) {
-                         val profileintent = Intent(mContext, ChangePasswordActivity::class.java)
-                         mContext.startActivity(profileintent)
-                     }
-                 } else {
-                     showToastShort(mContext, "Not Accessible by Guest")
-                 }
-             } else {
-                 showToastShort(mContext, "No Internet")
-             }
-         }
+        if (id == R.id.nav_changepass) {
+            if (cd!!.isConnected) {
+                if (getisVerified(mContext)) {
+                    if (mContext !is ChangePasswordActivity) {
+                        val profileintent = Intent(mContext, ChangePasswordActivity::class.java)
+                        mContext.startActivity(profileintent)
+                    }
+                } else {
+                    val profileintent = Intent(mContext, LoginActivity::class.java)
+                    mContext.startActivity(profileintent)
+                }
+            } else {
+                showToastShort(mContext, "No Internet")
+            }
+        }
 
         if (id == R.id.nav_address) {
             if (cd!!.isConnected) {
@@ -198,7 +213,8 @@ object Utility {
                         mContext.startActivity(profileintent)
                     }
                 } else {
-                    showToastShort(mContext, "Not Accessible by Guest")
+                    val profileintent = Intent(mContext, LoginActivity::class.java)
+                    mContext.startActivity(profileintent)
                 }
             } else {
                 showToastShort(mContext, "No Internet")
@@ -209,6 +225,20 @@ object Utility {
         if (id == R.id.nav_logout) {
             showLogoutAlert(mContext, "Are you sure?", "Logout")
         }
+
+        if (id == R.id.nav_customercare) {
+            if (getisVerified(mContext)) {
+                if (mContext !is CustomerSupportActivity) {
+                    val profileintent = Intent(mContext, CustomerSupportActivity::class.java)
+                    mContext.startActivity(profileintent)
+                }
+            } else {
+                val profileintent = Intent(mContext, LoginActivity::class.java)
+                mContext.startActivity(profileintent)
+            }
+        }
+
+
     }
 
     fun showToastShort(mContext: Context, msg: String) {
@@ -266,7 +296,7 @@ object Utility {
         var formated_date = ""
         if (normal_date.length > 6) {
             val originalFormat = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
-           // originalFormat.timeZone = TimeZone.getTimeZone("GMT")
+            // originalFormat.timeZone = TimeZone.getTimeZone("GMT")
             val targetFormat = SimpleDateFormat("yyyy-MM-dd")
             val date: Date
             try {
