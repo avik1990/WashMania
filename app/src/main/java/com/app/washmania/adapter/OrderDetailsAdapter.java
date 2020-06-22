@@ -148,7 +148,9 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
             TextView tv_qty = sublayout.findViewById(R.id.tv_qty);
             TextView tv_price = sublayout.findViewById(R.id.tv_price);
             TextView tv_subtotal = sublayout.findViewById(R.id.tv_subtotal);
+            TextView tv_cat = sublayout.findViewById(R.id.tv_cat);
 
+            tv_cat.setText(hashMap.get(getHashMapKeyFromIndex(hashMap, position)).get(i).getDress_for());
             tv_productname.setText(hashMap.get(getHashMapKeyFromIndex(hashMap, position)).get(i).getDressName());
             tv_qty.setText(hashMap.get(getHashMapKeyFromIndex(hashMap, position)).get(i).getQuantity()+" pcs");
             tv_price.setText("\u20B9" + hashMap.get(getHashMapKeyFromIndex(hashMap, position)).get(i).getDressPrice());

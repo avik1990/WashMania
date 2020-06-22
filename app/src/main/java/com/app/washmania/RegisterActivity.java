@@ -1,9 +1,19 @@
 package com.app.washmania;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +21,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.app.washmania.model.LoginResponse;
 import com.app.washmania.model.RegistrationResponse;
 import com.app.washmania.model.ZipCodeVerify;
@@ -18,12 +31,22 @@ import com.app.washmania.others.ConnectionDetector;
 import com.app.washmania.others.Utility;
 import com.app.washmania.others.WMPreference;
 import com.app.washmania.retrofit.api.ApiServices;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
+
+import java.util.List;
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, LocationListener {
 
     Context mContext;
 
@@ -54,6 +77,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     String user_state;
     String user_city;
     String user_zipcode;
+    private LocationManager locationManager;
+    String provider = "";
+    LocationListener locationListener;
+    double laitutude, longitude;
+    Location location;
+    Geocoder geocoder;
+    List<Address> addresses;
+    Button tv_location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +96,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         pDialog.setMessage("Please Wait...");
         pDialog.setCanceledOnTouchOutside(false);
         pDialog.setCancelable(false);
+        locationListener = this;
 
         initViews();
-
+        init();
     }
 
     private void initViews() {
+        tv_location = findViewById(R.id.tv_location);
         et_firstname = findViewById(R.id.et_firstname);
         et_lastname = findViewById(R.id.et_lastname);
         et_phoneno = findViewById(R.id.et_phoneno);
@@ -81,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         et_state = findViewById(R.id.et_state);
         et_city = findViewById(R.id.et_city);
         et_zipcode = findViewById(R.id.et_zipcode);
-
+        tv_location.setOnClickListener(this);
 
         et_zipcode.addTextChangedListener(new TextWatcher() {
             @Override
@@ -111,8 +144,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v == btn_register) {
-
-
             if (et_firstname.getText().toString().isEmpty()) {
                 Utility.INSTANCE.INSTANCE.showToastShort(mContext, "Please Enter First Name");
                 return;
@@ -193,6 +224,71 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             user_zipcode = et_zipcode.getText().toString().trim();
 
             verifyUser();
+
+        } else if (v == tv_location) {
+            Dexter.withActivity(this)
+                    .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                    .withListener(new PermissionListener() {
+                        @Override
+                        public void onPermissionGranted(PermissionGrantedResponse response) {
+
+                            if (location != null) {
+
+                                onLocationChanged(location);
+
+                                try {
+                                    geocoder = new Geocoder(mContext, Locale.getDefault());
+                                    addresses = geocoder.getFromLocation(laitutude, longitude, 1);
+                                    String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                                    String city = addresses.get(0).getLocality();
+                                    String state = addresses.get(0).getAdminArea();
+                                    String country = addresses.get(0).getCountryName();
+                                    String postalCode = "";
+
+                                    try {
+                                        postalCode = addresses.get(0).getPostalCode();
+                                        if (postalCode.isEmpty()) {
+                                            for (int i = 0; i < 5; i++) {
+                                                if (!addresses.get(i).getPostalCode().isEmpty()) {
+                                                    postalCode = addresses.get(i).getPostalCode();
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    } catch (Exception e) {
+                                    }
+
+                                    et_address.setText(address);
+                                    et_state.setText(state);
+                                    et_city.setText(city);
+                                    et_zipcode.setText(postalCode);
+                                    //String ad = address + " " + city + " " + state + " " + country + " " + postalCode;
+                                    //Log.e("vall", ad);
+                                } catch (Exception e) {
+
+                                }
+
+                            } else {
+                                Toast.makeText(mContext, "Turn On Location...", Toast.LENGTH_SHORT).show();
+                                //latituteField.setText("Location not available");
+                                // longitudeField.setText("Location not available");
+                            }
+                        }
+
+                        @Override
+                        public void onPermissionDenied(PermissionDeniedResponse response) {
+                            if (response.isPermanentlyDenied()) {
+                                // open device settings when the permission is
+                                // denied permanently
+                                openSettings();
+                            }
+                        }
+
+                        @Override
+                        public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                            token.continuePermissionRequest();
+                        }
+                    }).check();
         }
     }
 
@@ -318,4 +414,70 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
+    @SuppressLint("MissingPermission")
+    private void init() {
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        // Define the criteria how to select the locatioin provider -> use
+        // default
+        Criteria criteria = new Criteria();
+        provider = locationManager.getBestProvider(criteria, false);
+        location = locationManager.getLastKnownLocation(provider);
+
+        // Initialize the location fields
+        if (location != null) {
+            // System.out.println("Provider " + provider + " has been selected.");
+            onLocationChanged(location);
+        } else {
+            //latituteField.setText("Location not available");
+            // longitudeField.setText("Location not available");
+        }
+
+    }
+
+    /* Remove the locationlistener updates when Activity is paused */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        locationManager.removeUpdates(this);
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    protected void onResume() {
+        super.onResume();
+        locationManager.requestLocationUpdates(provider, 400, 1, this);
+    }
+
+    private void openSettings() {
+        Intent intent = new Intent();
+        intent.setAction(
+                Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package",
+                BuildConfig.APPLICATION_ID, null);
+        intent.setData(uri);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+        laitutude = (location.getLatitude());
+        longitude = (location.getLongitude());
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
 }

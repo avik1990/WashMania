@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -45,6 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     ZipCodemodel zipCodemodel;
     List<String> list_text = new ArrayList<>();
     RelativeLayout rl_signup;
+    ImageView show_pass_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initViews() {
+        show_pass_btn=findViewById(R.id.show_pass_btn);
         et_phoneno = findViewById(R.id.et_phoneno);
         et_password = findViewById(R.id.et_password);
         rl_signup = findViewById(R.id.rl_signup);
@@ -69,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btn_forgotpassword = findViewById(R.id.tv_forgotpass);
 
         btn_forgotpassword.setOnClickListener(this);
+        show_pass_btn.setOnClickListener(this);
         btn_login.setOnClickListener(this);
         rl_signup.setOnClickListener(this);
     }
@@ -97,8 +102,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } else if (v == btn_forgotpassword) {
             Intent i = new Intent(mContext, ForgotPasswordActivity.class);
             startActivity(i);
+        }else if(v==show_pass_btn){
+            if(et_password.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
+                show_pass_btn.setImageResource(R.drawable.ic_visibility_off_black_24dp);
+                //Show Password
+                et_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }
+            else{
+                show_pass_btn.setImageResource(R.drawable.ic_visibility_black_24dp);
+                //Hide Password
+                et_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
         }
-
     }
 
     private void verifyUser() {

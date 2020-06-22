@@ -125,6 +125,17 @@ public class MyCart {
         @SerializedName("dress_category")
         @Expose
         public String dress_category;
+        @SerializedName("dress_for")
+        @Expose
+        public String dress_for;
+
+        public String getDress_for() {
+            return dress_for;
+        }
+
+        public void setDress_for(String dress_for) {
+            this.dress_for = dress_for;
+        }
 
         public String getDress_category() {
             return dress_category;

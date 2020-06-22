@@ -92,6 +92,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                 if (response.isSuccessful()) {
                     registration = response.body();
                     if (registration.getAck()==1) {
+                        finish();
                         Utility.INSTANCE.showToastShort(mContext, registration.getMsg());
                     } else {
                         Utility.INSTANCE.showToastShort(mContext, registration.getMsg());

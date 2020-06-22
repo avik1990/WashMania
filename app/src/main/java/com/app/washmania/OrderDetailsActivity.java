@@ -228,36 +228,6 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
         });
     }
 
-    private void inflateContaioner() {
-        llContainer.removeAllViews();
-        LayoutInflater inflater = LayoutInflater.from(this);
-        /*for(int i = 0; i < hashMap.size(); i++) {
-            View layout_number = inflater.inflate(R.layout.row_orderdetails, llContainer, false);
-            TextView number = (TextView) layout_number.findViewById(R.id.tvCatName);
-            number.setTag(i);
-            number.setText(Integer.toString(i));
-            row.addView(number);
-            llContainer.addView(row);
-        }*/
-
-        for (Map.Entry<String, List<OrderDetailsModel.CartDatum>> entry : hashMap.entrySet()) {
-            View layout_number = inflater.inflate(R.layout.row_orderdetails, llContainer, false);
-            TextView number =  layout_number.findViewById(R.id.tvCatName);
-            Log.e("VAluess", entry.getKey());
-            number.setText(entry.getKey());
-            LinearLayout expandableLayout=  layout_number.findViewById(R.id.expandableLayout);
-            for (int j = 0; j < entry.getValue().size(); j++) {
-                Log.e("Values",entry.getValue().get(j).getDressName());
-                View sublayout = inflater.inflate(R.layout.explayout, expandableLayout, false);
-                TextView tv_productname =  sublayout.findViewById(R.id.tv_productname);
-                tv_productname.setText(entry.getValue().get(j).getDressName());
-                expandableLayout.addView(sublayout);
-            }
-            llContainer.addView(layout_number);
-        }
-
-
-    }
 
     private void inflateCartAdapter() {
         OrderDetailsAdapter mAdapter = new OrderDetailsAdapter(hashMap, mContext);

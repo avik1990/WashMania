@@ -89,42 +89,24 @@
                             android:layout_marginTop="@dimen/_10sdp">
 
 
-                        <RelativeLayout
-                                android:id="@+id/rlpassword"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                           >
-
-                            <EditText
-                                    android:id="@+id/et_password"
-                                    style="@style/TextAppearance.AppCompat.Small"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/_35sdp"
-                                    android:padding="@dimen/_5sdp"
-                                    android:background="@drawable/roundedcorner_editext"
-                                    android:drawableLeft="@drawable/ic_lock_black_24dp"
-                                    android:drawablePadding="@dimen/_5sdp"
-                                    android:fontFamily="Sans-serif"
-                                    android:hint="Password"
-                                    android:inputType="textPassword"
-                                    android:singleLine="true"/>
-
-                            <ImageView
-                                    android:id="@+id/show_pass_btn"
-                                    android:layout_width="@dimen/_30sdp"
-                                    android:layout_height="@dimen/_30sdp"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginRight="@dimen/_5sdp"
-                                    android:alpha=".5"
-                                    android:padding="@dimen/_5sdp"
-                                    android:src="@drawable/ic_visibility_black_24dp" />
-                        </RelativeLayout>
+                        <EditText
+                                android:id="@+id/et_password"
+                                style="@style/TextAppearance.AppCompat.Small"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_35sdp"
+                                android:padding="@dimen/_5sdp"
+                                android:background="@drawable/roundedcorner_editext"
+                                android:drawableLeft="@drawable/ic_lock_black_24dp"
+                                android:drawablePadding="@dimen/_5sdp"
+                                android:fontFamily="Sans-serif"
+                                android:hint="Password"
+                                android:inputType="textPassword"
+                                android:singleLine="true"/>
 
 
                         <RelativeLayout android:layout_width="match_parent"
                                         android:layout_marginTop="@dimen/_12sdp"
-                                        android:layout_below="@+id/rlpassword"
+                                        android:layout_below="@+id/et_password"
                                         android:layout_height="wrap_content">
 
                             <android.support.v7.widget.CardView
