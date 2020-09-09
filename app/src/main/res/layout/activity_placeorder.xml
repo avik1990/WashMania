@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".AboutUs">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".AboutUs">
 
     <include
             android:id="@+id/toolbar"
@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"/>
+            android:layout_alignParentTop="true" />
 
     <ScrollView
             android:layout_width="match_parent"
@@ -28,8 +28,7 @@
                 android:padding="@dimen/_10sdp">
 
 
-            <android.support.v7.widget.CardView
-                    xmlns:android="http://schemas.android.com/apk/res/android"
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/card_view"
                     android:layout_width="wrap_content"
@@ -42,124 +41,125 @@
                 <RelativeLayout
                         android:id="@+id/rlHeader"
                         android:layout_width="match_parent"
-                        android:padding="@dimen/_5sdp"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_5sdp">
 
 
                     <RelativeLayout
                             android:id="@+id/rlHeader1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+
                         <TextView
                                 android:id="@+id/tv_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:textStyle="bold"
                                 android:text="Delivery / Pickup Options"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_13sdp"/>
+                                android:textSize="@dimen/_13sdp"
+                                android:textStyle="bold" />
 
                         <TextView
                                 android:id="@+id/tv_changeAddress"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:layout_centerVertical="true"
-                                android:visibility="visible"
                                 android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:gravity="center"
                                 android:text="Change Address"
                                 android:textColor="@color/colorPrimaryDark1"
-                                android:textSize="@dimen/_13sdp"/>
+                                android:textSize="@dimen/_13sdp"
+                                android:visibility="visible" />
                     </RelativeLayout>
 
 
                     <EditText
                             android:id="@+id/tv_address"
-                            android:layout_below="@+id/rlHeader1"
                             android:layout_width="match_parent"
-                            android:hint="Enter Address"
-                            android:textColor="@color/black"
-                            android:padding="@dimen/_5sdp"
-                            android:visibility="gone"
+                            android:layout_height="@dimen/_35sdp"
+                            android:layout_below="@+id/rlHeader1"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:background="@drawable/roundedcorner_editext"
-                            android:layout_height="@dimen/_35sdp"
-                            android:textSize="@dimen/_14sdp"/>
+                            android:hint="Enter Address"
+                            android:padding="@dimen/_5sdp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14sdp"
+                            android:visibility="gone" />
 
                     <LinearLayout
                             android:id="@+id/ll_slotcontainer"
-                            android:orientation="vertical"
-                            android:layout_below="@+id/tv_address"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_address"
+                            android:orientation="vertical">
 
                         <EditText
                                 android:id="@+id/tv_flatno"
                                 android:layout_width="match_parent"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:textColor="@color/black"
-                                android:hint="Enter Apartment / Floor"
-                                android:background="@drawable/roundedcorner_editext"
                                 android:layout_height="@dimen/_35sdp"
-                                android:textSize="@dimen/_14sdp"
-                                android:padding="@dimen/_5sdp"/>
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:background="@drawable/roundedcorner_editext"
+                                android:hint="Enter Apartment / Floor"
+                                android:padding="@dimen/_5sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_14sdp" />
 
                         <EditText
                                 android:id="@+id/tv_pickupinstruction"
                                 android:layout_width="match_parent"
-                                android:hint="Add Pickup Instructions"
-                                android:textColor="@color/black"
-                                android:background="@drawable/roundedcorner_editext"
                                 android:layout_height="@dimen/_35sdp"
-                                android:textSize="@dimen/_14sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:background="@drawable/roundedcorner_editext"
+                                android:hint="Add Pickup Instructions"
                                 android:padding="@dimen/_5sdp"
-                                android:layout_marginTop="@dimen/_8sdp"/>
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_14sdp" />
                     </LinearLayout>
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
-                    xmlns:android="http://schemas.android.com/apk/res/android"
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/card_view1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_3sdp"
                     android:layout_below="@+id/card_view"
+                    android:layout_margin="@dimen/_3sdp"
                     android:background="@color/white"
                     android:elevation="@dimen/_12sdp"
                     card_view:cardCornerRadius="@dimen/_10sdp">98
 
-                <RelativeLayout android:layout_width="match_parent"
-                                android:padding="@dimen/_5sdp"
-                                android:layout_height="wrap_content">
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_5sdp">
 
                     <LinearLayout
                             android:id="@+id/ll_pickup"
-                            android:orientation="vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
                         <TextView
                                 android:id="@+id/tv_pickupHeader"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:textStyle="bold"
                                 android:text="Pickup Details"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_13sdp"/>
+                                android:textSize="@dimen/_13sdp"
+                                android:textStyle="bold" />
                     </LinearLayout>
 
 
                     <LinearLayout
                             android:id="@+id/llPickDate"
-                            android:orientation="vertical"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_below="@+id/ll_pickup"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/ll_pickup"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:orientation="vertical">
 
                         <TextView
                                 android:layout_width="wrap_content"
@@ -167,33 +167,31 @@
                                 android:gravity="center"
                                 android:text="Pick Up Date"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_13sdp"/>
+                                android:textSize="@dimen/_13sdp" />
 
                         <HorizontalScrollView
                                 android:layout_width="match_parent"
-                                android:scrollbars="none"
+                                android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_5sdp"
-                                android:layout_height="wrap_content">
+                                android:scrollbars="none">
 
-                            <com.google.android.flexbox.FlexboxLayout
-                                    xmlns:android="http://schemas.android.com/apk/res/android"
+                            <com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                     xmlns:app="http://schemas.android.com/apk/res-auto"
                                     android:id="@+id/v_container"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     app:alignContent="stretch"
                                     app:alignItems="stretch"
-                                    app:flexWrap="wrap">
-                            </com.google.android.flexbox.FlexboxLayout>
+                                    app:flexWrap="wrap"></com.google.android.flexbox.FlexboxLayout>
                         </HorizontalScrollView>
                     </LinearLayout>
 
                     <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_below="@+id/llPickDate"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/llPickDate"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:orientation="vertical">
 
                         <TextView
                                 android:layout_width="wrap_content"
@@ -201,24 +199,22 @@
                                 android:gravity="center"
                                 android:text="Pick Up Time"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_13sdp"/>
+                                android:textSize="@dimen/_13sdp" />
 
                         <HorizontalScrollView
                                 android:layout_width="match_parent"
-                                android:scrollbars="none"
+                                android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_5sdp"
-                                android:layout_height="wrap_content">
+                                android:scrollbars="none">
 
-                            <com.google.android.flexbox.FlexboxLayout
-                                    xmlns:android="http://schemas.android.com/apk/res/android"
+                            <com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                     xmlns:app="http://schemas.android.com/apk/res-auto"
                                     android:id="@+id/v_containertime"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     app:alignContent="stretch"
                                     app:alignItems="stretch"
-                                    app:flexWrap="wrap">
-                            </com.google.android.flexbox.FlexboxLayout>
+                                    app:flexWrap="wrap"></com.google.android.flexbox.FlexboxLayout>
                         </HorizontalScrollView>
                     </LinearLayout>
                 </RelativeLayout>
@@ -242,9 +238,9 @@
                 android:layout_height="@dimen/_40sdp"
                 android:background="@color/colorPrimaryDark1"
                 android:text="Place Order"
-                android:textSize="@dimen/_14sdp"
                 android:textAllCaps="false"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp" />
     </RelativeLayout>
 
 

@@ -143,39 +143,6 @@ public class MyOrderAdapterPast extends RecyclerView.Adapter<MyOrderAdapterPast.
     }
 
 
-    private void deletefromcart(String cart_id) {
-        progressDialog.show();
-        String BASE_URL = mContext.getResources().getString(R.string.base_url);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiServices redditAPI;
-        redditAPI = retrofit.create(ApiServices.class);
-        Call<CartDeleteAction> call = redditAPI.GetCancelOrder(WMPreference.INSTANCE.get_userId(mContext), cart_id, WMPreference.INSTANCE.get_UniqueId(mContext));
-        call.enqueue(new Callback<CartDeleteAction>() {
-
-            @Override
-            public void onResponse(Call<CartDeleteAction> call, retrofit2.Response<CartDeleteAction> response) {
-                Log.d("String", "" + response);
-                if (response.isSuccessful()) {
-                    cartDeleteAction = response.body();
-                    if (cartDeleteAction.getAck().equals("1")) {
-                        //((FragmentAllOrder) mContext).parsejson();
-                    } else {
-                        Utility.INSTANCE.showToastShort(mContext, cartDeleteAction.getMsg());
-                    }
-                }
-                progressDialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<CartDeleteAction> call, Throwable t) {
-                progressDialog.dismiss();
-            }
-        });
-    }
 
 
     /*private void addTocart(String dressId, String quantity, String isCartAdd) {

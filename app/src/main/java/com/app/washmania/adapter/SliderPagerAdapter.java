@@ -40,27 +40,6 @@ public class SliderPagerAdapter extends PagerAdapter {
             SimpleDraweeView im_slider = (SimpleDraweeView) view.findViewById(R.id.im_slider);
             final ProgressBar progressView = (ProgressBar) view.findViewById(R.id.progressbar);
             im_slider.getHierarchy().setProgressBarImage(new ProgressBarDrawable());
-            //progressView.setVisibility(View.VISIBLE);
-       /*Picasso.with(activity.getApplicationContext())
-                .load(image_arraylist.get(position))
-                //.placeholder(R.mipmap.ic_launcher) // optional
-                //.error(R.mipmap.ic_launcher)         // optional
-                .into(im_slider);*/
-        /*Picasso.with(activity.getApplicationContext())
-                .load(image_arraylist.get(position))
-                .into(im_slider, new com.squareup.picasso.Callback() {
-                    @Override
-                    public void onSuccess() {
-                        progressView.setVisibility(View.GONE);
-                    }
-                    @Override
-                    public void onError() {
-                    }
-                });*/
-       /* Glide.with(activity.getApplicationContext() )
-                .load(image_arraylist.get(position))
-                .thumbnail(0.1f) //rate of the full resoultion to show while loading
-                .into(im_slider);*/
 
             com.facebook.imagepipeline.request.ImageRequest request = ImageRequestBuilder
                     .newBuilderWithSource(Uri.parse(image_arraylist.get(position)))
@@ -68,44 +47,11 @@ public class SliderPagerAdapter extends PagerAdapter {
                     .setLocalThumbnailPreviewsEnabled(true)
                     .build();
 
-           /* im_slider.setController(Fresco.newDraweeControllerBuilder().setControllerListener(new ControllerListener<ImageInfo>() {
-                @Override
-                public void onSubmit(String id, Object callerContext) {
-
-                }
-
-                @Override
-                public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
-                    progressView.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onIntermediateImageSet(String id, ImageInfo imageInfo) {
-
-                }
-
-                @Override
-                public void onIntermediateImageFailed(String id, Throwable throwable) {
-
-                }
-
-                @Override
-                public void onFailure(String id, Throwable throwable) {
-
-                }
-
-                @Override
-                public void onRelease(String id) {
-
-                }
-            }).build());*/
-
             DraweeController controller = Fresco.newDraweeControllerBuilder()
                     .setImageRequest(request)
                     .setOldController(im_slider.getController())
                     .build();
             im_slider.setController(controller);
-
 
             container.addView(view);
         } catch (Exception e) {

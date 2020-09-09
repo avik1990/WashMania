@@ -60,7 +60,6 @@ public class FragmentAllOrder extends Fragment {
         super.setUserVisibleHint(true);
         if (this.isVisible()) {
             if (isFragmentVisible_ && !_hasLoadedOnce) {
-
                 _hasLoadedOnce = true;
             }
         }
@@ -79,7 +78,6 @@ public class FragmentAllOrder extends Fragment {
         redditAPI = retrofit.create(ApiServices.class);
 
         Call<Myorders> call = redditAPI.GetOrderListResponse(WMPreference.INSTANCE.get_userId(mContext));
-        //Call<Myorders> call = redditAPI.GetOrderListResponse(WMPreference.INSTANCE.get_userId(mContext), "");
 
         call.enqueue(new Callback<Myorders>() {
 
@@ -107,6 +105,5 @@ public class FragmentAllOrder extends Fragment {
     private void inflateAdapter() {
         MyOrderAdapterAll ca = new MyOrderAdapterAll(productsMod.getOrderData(), mContext,FragmentAllOrder.this);
         rv_recyclerview.setAdapter(ca);
-
     }
 }

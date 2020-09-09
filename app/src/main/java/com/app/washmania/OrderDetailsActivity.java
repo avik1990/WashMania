@@ -46,7 +46,6 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
     RecyclerView rl_cart;
     LinearLayout footer;
     RelativeLayout footerBtn;
-    TextView tv_totalprice, tv_taxpercentage, tv_grandtotdal;
     Button btn_checkout;
     ZipCodeVerify zipCodeVerify;
     FrameLayout cartvie;
@@ -57,6 +56,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
     CircularTextView tv_cartcount;
     HashMap<String, List<OrderDetailsModel.CartDatum>> hashMap;
     LinearLayout llContainer;
+    TextView tv_totalprice, tv_taxpercentage, tv_grandtotdal,tv_totalcost,tv_grandtotal,tv_deliverycharge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,27 +71,15 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
         pDialog.setCancelable(false);
         orderId = getIntent().getStringExtra("OrderId");
 
-        //Utility.INSTANCE.showToastShort(mContext, orderId);
-        /*ProductId = getIntent().getStringExtra("ProductId");
-        PacketId = getIntent().getStringExtra("PacketId");
-        From = getIntent().getStringExtra("From");*/
 
         rl_cart = findViewById(R.id.rl_cart);
         rl_cart.setLayoutManager(new LinearLayoutManager(mContext));
         tv_delivery = findViewById(R.id.tv_delivery);
-        /*if (From.equals("ProductDetails")) {
-            if (cd.isConnected()) {
-                AddToCart();
-            } else {
-                Utility.INSTANCE.showToastShort(mContext, getResources().getString(R.string.no_internet_msg));
-            }
-        } else {*/
         if (cd.isConnected()) {
             LoadCartProduct();
         } else {
             Utility.INSTANCE.showToastShort(mContext, getResources().getString(R.string.no_internet_msg));
         }
-        //  }
         initView();
     }
 
@@ -110,11 +98,13 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
         String colorStr = getResources().getString(R.string.green_color);
         tv_cartcount.setSolidColor(colorStr);
 
-        tvQuantity = findViewById(R.id.tvQuantity);
-        tv_pagename = findViewById(R.id.tv_pagename);
-        tv_totalprice = findViewById(R.id.tv_totalprice);
+        tv_totalcost= findViewById(R.id.tv_totalcost);
+        tv_grandtotal= findViewById(R.id.tv_grandtotal);
+        tvQuantity= findViewById(R.id.tv_totalquantity);
+        tv_deliverycharge= findViewById(R.id.tv_deliverycharge);
+
         tv_taxpercentage = findViewById(R.id.tv_taxpercentage);
-        tv_grandtotdal = findViewById(R.id.tv_grandtotdal);
+        tv_pagename = findViewById(R.id.tv_pagename);
         footer = findViewById(R.id.footer);
         footerBtn = findViewById(R.id.footerBtn);
         btn_checkout = findViewById(R.id.btn_checkout);
@@ -130,7 +120,6 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
         btn_checkout.setOnClickListener(this);
         btn_addMoreService.setOnClickListener(this);
         tv_pagename.setText("Order Details");
-        //tvQuantity.setText("Total Quantity: 0");
         iv_cart = findViewById(R.id.iv_cart);
         iv_cart.setOnClickListener(this);
         ImageView iv_phone = findViewById(R.id.iv_phone);
@@ -197,18 +186,22 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                         rl_cart.setVisibility(View.VISIBLE);
                         listmycart = myCart.getCartData();
                         hashMap = new HashMap<>();
-                        for (OrderDetailsModel.CartDatum student : listmycart) {
-                            String key = student.getDress_category();
-                            if (hashMap.containsKey(key)) {
-                                List<OrderDetailsModel.CartDatum> list = hashMap.get(key);
-                                list.add(student);
-                            } else {
-                                List<OrderDetailsModel.CartDatum> list = new ArrayList<OrderDetailsModel.CartDatum>();
-                                list.add(student);
-                                hashMap.put(key, list);
+                        try {
+                            for (OrderDetailsModel.CartDatum student : listmycart) {
+                                String key = student.getDress_category();
+                                if (hashMap.containsKey(key)) {
+                                    List<OrderDetailsModel.CartDatum> list = hashMap.get(key);
+                                    list.add(student);
+                                } else {
+                                    List<OrderDetailsModel.CartDatum> list = new ArrayList<OrderDetailsModel.CartDatum>();
+                                    list.add(student);
+                                    hashMap.put(key, list);
+                                }
                             }
+                            inflateCartAdapter();
+                        }catch(Exception e){
+                            e.printStackTrace();
                         }
-                        inflateCartAdapter();
                        // inflateContaioner();
                     } else {
                         footerBtn.setVisibility(View.GONE);
@@ -233,10 +226,13 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
         OrderDetailsAdapter mAdapter = new OrderDetailsAdapter(hashMap, mContext);
         rl_cart.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
-
-        tv_totalprice.setText("\u20A8" + ". " + myCart.getPriceData().getTotalPrice());
-        tvQuantity.setText("Total Quantity: " + myCart.getPriceData().getTotalQuantity());
-        tv_grandtotdal.setText("\u20A8" + ". " + myCart.getPriceData().getGrandTotal());
         footer.setVisibility(View.VISIBLE);
+
+
+        tv_totalcost.setText("\u20B9" + " " + myCart.getPriceData().getTotalPrice());
+        tv_deliverycharge.setText("\u20B9" + " " + myCart.getPriceData().getDeliveryCharge());
+        tvQuantity.setText(myCart.getPriceData().getTotalQuantity());
+        tv_grandtotal.setText("\u20B9" + " " +myCart.getPriceData().getGrandTotal());
+
     }
 }

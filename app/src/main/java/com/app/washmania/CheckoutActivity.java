@@ -39,20 +39,16 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     ConnectionDetector cd;
     TextView tv_pagename;
     ProgressDialog pDialog;
-    BaseResponse addToCart;
     MyCart myCart;
     public static List<MyCart.CartDatum> listmycart = new ArrayList<>();
-    String ProductId = "", PacketId = "", From;
     RecyclerView rl_cart;
     LinearLayout footer;
     RelativeLayout footerBtn;
-    TextView tv_totalprice, tv_taxpercentage, tv_grandtotdal;
+    TextView  tv_taxpercentage, tv_grandtotdal,tv_totalcost,tv_grandtotal,tv_deliverycharge;
     Button btn_checkout;
-    ZipCodeVerify zipCodeVerify;
     FrameLayout cartvie;
     TextView tv_delivery, tvQuantity;
     String isQuickDelivery = "0";
-    String orderId = "";
     CircularTextView tv_cartcount;
     HashMap<String, List<MyCart.CartDatum>> hashMap;
     LinearLayout llContainer;
@@ -69,15 +65,16 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         pDialog.setCanceledOnTouchOutside(false);
         pDialog.setCancelable(false);
 
-
         rl_cart = findViewById(R.id.rl_cart);
         rl_cart.setLayoutManager(new LinearLayoutManager(mContext));
         tv_delivery = findViewById(R.id.tv_delivery);
+
         if (cd.isConnected()) {
             LoadCartProduct();
         } else {
             Utility.INSTANCE.showToastShort(mContext, getResources().getString(R.string.no_internet_msg));
         }
+
         initView();
     }
 
@@ -95,10 +92,11 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         tv_cartcount = findViewById(R.id.tv_cartcount);
         String colorStr = getResources().getString(R.string.green_color);
         tv_cartcount.setSolidColor(colorStr);
-
-        tvQuantity = findViewById(R.id.tvQuantity);
         tv_pagename = findViewById(R.id.tv_pagename);
-        tv_totalprice = findViewById(R.id.tv_totalprice);
+        tv_deliverycharge= findViewById(R.id.tv_deliverycharge);
+        tv_totalcost= findViewById(R.id.tv_totalcost);
+        tv_grandtotal= findViewById(R.id.tv_grandtotal);
+        tvQuantity= findViewById(R.id.tv_totalquantity);
         tv_taxpercentage = findViewById(R.id.tv_taxpercentage);
         tv_grandtotdal = findViewById(R.id.tv_grandtotdal);
         footer = findViewById(R.id.footer);
@@ -114,7 +112,6 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         btn_back.setOnClickListener(this);
         btn_checkout.setOnClickListener(this);
         tv_pagename.setText("Order Details");
-        //tvQuantity.setText("Total Quantity: 0");
         iv_cart = findViewById(R.id.iv_cart);
         iv_cart.setOnClickListener(this);
         ImageView iv_phone = findViewById(R.id.iv_phone);
@@ -182,7 +179,6 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
                         for (MyCart.CartDatum student : listmycart) {
                             String key = student.getDress_category().trim();
-                            Log.e("Keyssss", key);
                             if (hashMap.containsKey(key)) {
                                 List<MyCart.CartDatum> list = hashMap.get(key);
                                 list.add(student);
@@ -194,7 +190,6 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                         }
 
                         inflateCartAdapter();
-                        // inflateContaioner();
                     } else {
                         footerBtn.setVisibility(View.GONE);
                         footer.setVisibility(View.GONE);
@@ -218,10 +213,11 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         CheckoutAdapter mAdapter = new CheckoutAdapter(hashMap, mContext,listmycart);
         rl_cart.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
-
-        tv_totalprice.setText("\u20A8" + ". " + myCart.getPriceData().getTotalPrice());
-        tvQuantity.setText("Total Quantity: " + myCart.getPriceData().getTotal_quantity());
-        tv_grandtotdal.setText("\u20A8" + ". " + myCart.getPriceData().getGrand_total());
         footer.setVisibility(View.VISIBLE);
+
+        tv_totalcost.setText("\u20B9" + " " + myCart.getPriceData().totalPrice);
+        tv_deliverycharge.setText("\u20B9" + " " + myCart.getPriceData().delivery_charge);
+        tvQuantity.setText(myCart.getPriceData().total_quantity);
+        tv_grandtotal.setText("\u20B9" + " " +myCart.getPriceData().getGrand_total());
     }
 }

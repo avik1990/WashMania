@@ -221,7 +221,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_30sdp"
                         android:gravity="center"
-                        android:background="@drawable/rounded_corner_btn_register"
+                        android:background="@drawable/rounded_corner_btn_login"
                         android:text="Fetch Location"
                         android:textAllCaps="false"
                         android:textSize="@dimen/_14sdp"
@@ -234,7 +234,7 @@
                         android:layout_below="@+id/tv_location"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:background="@drawable/rounded_corner_btn_register"
-                        android:text="Submit"
+                        android:text="Register Now"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_14sdp" />

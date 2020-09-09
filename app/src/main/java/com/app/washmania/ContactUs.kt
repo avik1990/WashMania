@@ -14,6 +14,7 @@ import com.app.washmania.others.ConnectionDetector
 import com.app.washmania.others.WMPreference.get_Cartount
 import com.app.washmania.others.Utility
 import com.app.washmania.retrofit.api.ApiServices
+import kotlinx.android.synthetic.main.activity_contactus.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
@@ -51,6 +52,8 @@ class ContactUs : BaseActivity(), View.OnClickListener {
         tv_contactno1.setText("Contact No. 1 : " + aboutUs!!.getContactData().getContactNo1())
         tv_contactno2.setText("Contact No. 2 : " + aboutUs!!.getContactData().getContactNo2())
         tv_whatsapp.setText("Whatsapp No : " + aboutUs!!.getContactData().getWhatsappNo())
+        tv_contactnperson.setText("Contact Person : " + aboutUs!!.getContactData().getContact_person())
+
     }
 
 

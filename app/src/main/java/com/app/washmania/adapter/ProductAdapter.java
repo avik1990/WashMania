@@ -293,8 +293,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         ApiServices redditAPI;
         redditAPI = retrofit.create(ApiServices.class);
         Call<CartAdditionModel> call = redditAPI.AddToCart(WMPreference.INSTANCE.get_userId(mContext),
-                WMPreference.INSTANCE.get_UniqueId(mContext), quantity,
-                isCartAdd, dressId);
+                WMPreference.INSTANCE.get_UniqueId(mContext), "1", isCartAdd, dressId);
         call.enqueue(new Callback<CartAdditionModel>() {
 
             @Override

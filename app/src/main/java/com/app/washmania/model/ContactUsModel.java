@@ -21,6 +21,9 @@ public class ContactUsModel {
         @SerializedName("address")
         @Expose
         public String address;
+        @SerializedName("contact_person")
+        @Expose
+        public String contact_person;
         @SerializedName("email")
         @Expose
         public String email;
@@ -39,6 +42,14 @@ public class ContactUsModel {
         @SerializedName("msg")
         @Expose
         public String msg;
+
+        public String getContact_person() {
+            return contact_person;
+        }
+
+        public void setContact_person(String contact_person) {
+            this.contact_person = contact_person;
+        }
 
         public String getAddress() {
             return address;

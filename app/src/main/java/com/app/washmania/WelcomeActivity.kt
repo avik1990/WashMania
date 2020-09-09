@@ -24,7 +24,8 @@ class WelcomeActivity : BaseActivity() {
     }
 
     override fun initListeners() {
-        layouts = intArrayOf(R.layout.welcome_slide1, R.layout.welcome_slide2, R.layout.welcome_slide3)
+        layouts =
+            intArrayOf(R.layout.welcome_slide1, R.layout.welcome_slide2, R.layout.welcome_slide3)
 
         // adding bottom dots
         addBottomDots(0)
@@ -48,7 +49,8 @@ class WelcomeActivity : BaseActivity() {
             } else {
                 launchHomeScreen()
             }
-        })     }
+        })
+    }
 
     private var viewPager: ViewPager? = null
     private var myViewPagerAdapter: MyViewPagerAdapter? = null
@@ -122,30 +124,31 @@ class WelcomeActivity : BaseActivity() {
     }
 
     //  viewpager change listener
-    internal var viewPagerPageChangeListener: ViewPager.OnPageChangeListener = object : ViewPager.OnPageChangeListener {
+    internal var viewPagerPageChangeListener: ViewPager.OnPageChangeListener =
+        object : ViewPager.OnPageChangeListener {
 
-        override fun onPageSelected(position: Int) {
-            addBottomDots(position)
+            override fun onPageSelected(position: Int) {
+                addBottomDots(position)
 
-            // changing the next button text 'NEXT' / 'GOT IT'
-            if (position == layouts!!.size - 1) {
-                // last page. make button text to GOT IT
-                btnNext!!.setText(getString(R.string.start))
-                btnSkip!!.setVisibility(View.GONE)
-            } else {
-                // still pages are left
-                btnNext!!.setText(getString(R.string.next))
-                btnSkip!!.setVisibility(View.VISIBLE)
+                // changing the next button text 'NEXT' / 'GOT IT'
+                if (position == layouts!!.size - 1) {
+                    // last page. make button text to GOT IT
+                    btnNext!!.setText(getString(R.string.start))
+                    btnSkip!!.setVisibility(View.GONE)
+                } else {
+                    // still pages are left
+                    btnNext!!.setText(getString(R.string.next))
+                    btnSkip!!.setVisibility(View.VISIBLE)
+                }
+            }
+
+            override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {
+
+            }
+
+            override fun onPageScrollStateChanged(arg0: Int) {
+
             }
         }
-
-        override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {
-
-        }
-
-        override fun onPageScrollStateChanged(arg0: Int) {
-
-        }
-    }
 
 }

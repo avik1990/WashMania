@@ -32,8 +32,6 @@ import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> {
     private List<MyCart.CartDatum> moviesList;
-    private List<MyCart.CartDatum> moviesList1;
-    private List<MyCart.CartDatum> mArrayList;
     Context mContext;
     private int amount = 0;
     MyCart.CartDatum movie;
@@ -76,8 +74,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     public CartAdapter(List<MyCart.CartDatum> moviesList, Context mContext) {
         this.moviesList = moviesList;
-        this.moviesList1 = moviesList;
-        this.mArrayList = moviesList;
         this.mContext = mContext;
         progressDialog = new ProgressDialog(mContext);
         progressDialog.setMessage("Loading...");
@@ -97,6 +93,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder1 = holder;
         movie = moviesList.get(position);
         holder.tv_productname.setText(movie.getDress_name());
+        Log.e("DressName",movie.getDress_name());
         holder.tv_id.setText(movie.getCartId());
         holder.et_qty.setText(String.valueOf(movie.quantity));
 
@@ -158,7 +155,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                             }
                         })
                         .show();
-
             }
         });
 
@@ -273,7 +269,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
         ApiServices redditAPI;
         redditAPI = retrofit.create(ApiServices.class);
-        Call<CartDeleteAction> call = redditAPI.UpdateMyCart(WMPreference.INSTANCE.get_userId(mContext), cart_id, WMPreference.INSTANCE.get_UniqueId(mContext), quantity, isCartAdd);
+        Call<CartDeleteAction> call = redditAPI.UpdateMyCart(WMPreference.INSTANCE.get_userId(mContext), cart_id, WMPreference.INSTANCE.get_UniqueId(mContext), "1", isCartAdd);
         call.enqueue(new Callback<CartDeleteAction>() {
 
             @Override

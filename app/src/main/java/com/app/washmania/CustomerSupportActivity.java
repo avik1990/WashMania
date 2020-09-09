@@ -84,7 +84,7 @@ public class CustomerSupportActivity extends AppCompatActivity implements View.O
         String colorStr = getResources().getString(R.string.green_color);
         tv_cartcount.setSolidColor(colorStr);
         btn_placeorder = findViewById(R.id.btn_placeorder);
-
+        btn_placeorder.setOnClickListener(this);
         ImageView iv_phone = findViewById(R.id.iv_phone);
         iv_phone.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("MissingPermission")
@@ -100,14 +100,11 @@ public class CustomerSupportActivity extends AppCompatActivity implements View.O
     public void onClick(View v) {
         if (v == btn_placeorder) {
             user_phone = et_phoneno.getText().toString().trim();
-
             if (user_phone.isEmpty()) {
                 Utility.INSTANCE.showToastShort(mContext, "Please Enter Phone No.");
                 return;
             }
-
             postShippingDetails();
-
         } else if (v == btn_back) {
             onBackPressed();
             finish();

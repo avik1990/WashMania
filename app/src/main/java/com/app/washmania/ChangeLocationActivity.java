@@ -25,6 +25,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
 import com.app.washmania.model.BaseResponse;
 import com.app.washmania.model.MyProfile;
 import com.app.washmania.model.ZipCodeVerify;
@@ -39,6 +40,9 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+
+import net.alexandroid.gps.GpsStatusDetector;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -49,7 +53,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class ChangeLocationActivity extends AppCompatActivity implements View.OnClickListener, LocationListener {
+public class ChangeLocationActivity extends AppCompatActivity implements View.OnClickListener, LocationListener, GpsStatusDetector.GpsStatusDetectorCallBack {
 
     Context mContext;
     Button btn_register;
@@ -75,10 +79,10 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
     String user_state;
     String user_city;
     String user_zipcode;
-    String user_landmark="";
+    String user_landmark = "";
     CircularTextView tv_cartcount;
     ImageView iv_cart, btn_back, btn_menu;
-    FloatingActionButton fabLocation;
+    Button fabLocation;
     private LocationManager locationManager;
     String provider = "";
     LocationListener locationListener;
@@ -87,6 +91,7 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
     Geocoder geocoder;
     List<Address> addresses;
     EditText et_landmark;
+    private GpsStatusDetector mGpsStatusDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +100,8 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
         mContext = this;
         locationListener = this;
         cd = new ConnectionDetector(mContext);
+        mGpsStatusDetector = new GpsStatusDetector(this);
+        mGpsStatusDetector.checkGpsStatus();
         pDialog = new ProgressDialog(mContext);
         pDialog.setMessage("Please Wait...");
         pDialog.setCanceledOnTouchOutside(false);
@@ -114,7 +121,6 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
         location = locationManager.getLastKnownLocation(provider);
-
         // Initialize the location fields
         if (location != null) {
             // System.out.println("Provider " + provider + " has been selected.");
@@ -163,7 +169,7 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
                 finishAffinity();
             }
         });
-        et_landmark= findViewById(R.id.et_landmark);
+        et_landmark = findViewById(R.id.et_landmark);
         et_firstname = findViewById(R.id.et_firstname);
         et_lastname = findViewById(R.id.et_lastname);
         et_phoneno = findViewById(R.id.et_phoneno);
@@ -231,32 +237,6 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         if (v == btn_register) {
-            /*if (et_firstname.getText().toString().isEmpty()) {
-                Utility.INSTANCE.showToastShort(mContext, "Please Enter First Name");
-                return;
-            }
-
-            if (et_lastname.getText().toString().isEmpty()) {
-                Utility.INSTANCE.showToastShort(mContext, "Please Enter Last Name");
-                return;
-            }
-
-            if (et_phoneno.getText().toString().isEmpty()) {
-                Utility.INSTANCE.showToastShort(mContext, "Please Enter Phone No.");
-                return;
-            }
-
-            if (et_email.getText().toString().isEmpty()) {
-                Utility.INSTANCE.showToastShort(mContext, "Please Enter Your Email");
-                return;
-            }
-
-            if (!Utility.INSTANCE.isValidEmail(et_email.getText().toString())) {
-                Utility.INSTANCE.showToastShort(mContext, "Please Enter Valid Email");
-                return;
-            }*/
-
-
             if (et_address.getText().toString().isEmpty()) {
                 Utility.INSTANCE.showToastShort(mContext, "Please Enter Address");
                 return;
@@ -291,7 +271,7 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
             user_state = et_state.getText().toString().trim();
             user_city = et_city.getText().toString().trim();
             user_zipcode = et_zipcode.getText().toString().trim();
-            user_landmark= et_landmark.getText().toString().trim();
+            user_landmark = et_landmark.getText().toString().trim();
 
             UpdateUserDetails();
         }
@@ -313,10 +293,13 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
                     .withListener(new PermissionListener() {
                         @Override
                         public void onPermissionGranted(PermissionGrantedResponse response) {
-                            if (location != null) {
+                            //Utility.INSTANCE.showToastShort(mContext,"Hewllw");
+                           // if (location != null) {
+                                try {
+                                    onLocationChanged(location);
+                                }catch (Exception e){
 
-                                onLocationChanged(location);
-
+                                }
                                 try {
                                     geocoder = new Geocoder(mContext, Locale.getDefault());
                                     addresses = geocoder.getFromLocation(laitutude, longitude, 1);
@@ -349,10 +332,10 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
 
                                 }
 
-                            } else {
+                           /* } else {
                                 //latituteField.setText("Location not available");
                                 // longitudeField.setText("Location not available");
-                            }
+                            }*/
                         }
 
                         @Override
@@ -470,7 +453,7 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
         ApiServices redditAPI;
         redditAPI = retrofit.create(ApiServices.class);
 
-        Call<BaseResponse> call = redditAPI.UserUpdateDetails(WMPreference.INSTANCE.get_userId(mContext), user_firstname, user_lastname, user_phoneno, user_email, user_address, user_state, user_city, user_zipcode,user_landmark);
+        Call<BaseResponse> call = redditAPI.UserUpdateDetails(WMPreference.INSTANCE.get_userId(mContext), user_firstname, user_lastname, user_phoneno, user_email, user_address, user_state, user_city, user_zipcode, user_landmark);
         call.enqueue(new Callback<BaseResponse>() {
 
             @Override
@@ -498,7 +481,7 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
     public void onLocationChanged(Location location) {
         laitutude = (location.getLatitude());
         longitude = (location.getLongitude());
-       // Utility.INSTANCE.showToastShort(mContext, "" + laitutude + " : " + longitude);
+        // Utility.INSTANCE.showToastShort(mContext, "" + laitutude + " : " + longitude);
     }
 
     @Override
@@ -508,11 +491,26 @@ public class ChangeLocationActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onProviderEnabled(String s) {
-
     }
 
     @Override
     public void onProviderDisabled(String s) {
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mGpsStatusDetector.checkOnActivityResult(requestCode, resultCode);
+    }
+
+    @Override
+    public void onGpsSettingStatus(boolean enabled) {
+    }
+
+    @Override
+    public void onGpsAlertCanceledByUser() {
 
     }
+
+
 }

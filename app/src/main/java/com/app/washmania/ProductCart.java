@@ -19,6 +19,9 @@ import com.app.washmania.others.ConnectionDetector;
 import com.app.washmania.others.Utility;
 import com.app.washmania.others.WMPreference;
 import com.app.washmania.retrofit.api.ApiServices;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -34,20 +37,19 @@ public class ProductCart extends AppCompatActivity implements View.OnClickListen
     ConnectionDetector cd;
     TextView tv_pagename;
     ProgressDialog pDialog;
-    BaseResponse addToCart;
     MyCart myCart;
     public static List<MyCart.CartDatum> listmycart = new ArrayList<>();
-    String ProductId = "", PacketId = "", From;
     RecyclerView rl_cart;
     LinearLayout footer;
     RelativeLayout footerBtn;
-    TextView tv_totalprice, tv_taxpercentage, tv_grandtotdal;
+    TextView  tv_taxpercentage, tv_grandtotdal,tv_totalcost,tv_grandtotal;
     Button btn_checkout;
     ZipCodeVerify zipCodeVerify;
     FrameLayout cartvie;
     TextView tv_delivery,tvQuantity;
     String isQuickDelivery = "0";
     Button btn_addMoreService;
+    TextView tv_deliverycharge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,26 +63,15 @@ public class ProductCart extends AppCompatActivity implements View.OnClickListen
         pDialog.setCanceledOnTouchOutside(false);
         pDialog.setCancelable(false);
 
-        /*ProductId = getIntent().getStringExtra("ProductId");
-        PacketId = getIntent().getStringExtra("PacketId");
-        From = getIntent().getStringExtra("From");*/
 
         rl_cart = findViewById(R.id.rl_cart);
         rl_cart.setLayoutManager(new LinearLayoutManager(mContext));
         tv_delivery = findViewById(R.id.tv_delivery);
-        /*if (From.equals("ProductDetails")) {
-            if (cd.isConnected()) {
-                AddToCart();
-            } else {
-                Utility.INSTANCE.showToastShort(mContext, getResources().getString(R.string.no_internet_msg));
-            }
-        } else {*/
         if (cd.isConnected()) {
             LoadCartProduct();
         } else {
             Utility.INSTANCE.showToastShort(mContext, getResources().getString(R.string.no_internet_msg));
         }
-        //  }
         initView();
     }
 
@@ -94,10 +85,12 @@ public class ProductCart extends AppCompatActivity implements View.OnClickListen
                 finishAffinity();
             }
         });
-
-        tvQuantity= findViewById(R.id.tvQuantity);
+        tv_totalcost= findViewById(R.id.tv_totalcost);
+        tv_grandtotal= findViewById(R.id.tv_grandtotal);
+        tvQuantity= findViewById(R.id.tv_totalquantity);
         tv_pagename = findViewById(R.id.tv_pagename);
-        tv_totalprice = findViewById(R.id.tv_totalprice);
+       // tv_totalprice = findViewById(R.id.tv_totalprice);
+        tv_deliverycharge= findViewById(R.id.tv_deliverycharge);
         tv_taxpercentage = findViewById(R.id.tv_taxpercentage);
         tv_grandtotdal = findViewById(R.id.tv_grandtotdal);
         footer = findViewById(R.id.footer);
@@ -115,7 +108,7 @@ public class ProductCart extends AppCompatActivity implements View.OnClickListen
         btn_checkout.setOnClickListener(this);
         btn_addMoreService.setOnClickListener(this);
         tv_pagename.setText("My Basket");
-        tvQuantity.setText("Total Quantity: 0");
+        tvQuantity.setText("0");
 
         ImageView iv_phone = findViewById(R.id.iv_phone);
         iv_phone.setOnClickListener(new View.OnClickListener() {
@@ -153,8 +146,15 @@ public class ProductCart extends AppCompatActivity implements View.OnClickListen
     public void LoadCartProduct() {
         pDialog.show();
         String BASE_URL = getResources().getString(R.string.base_url);
+        final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        final OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .build();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -197,34 +197,11 @@ public class ProductCart extends AppCompatActivity implements View.OnClickListen
         rl_cart.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
 
-        tv_totalprice.setText("\u20A8" + ". " + myCart.getPriceData().totalPrice);
-        tvQuantity.setText("Total Quantity: " + myCart.getPriceData().total_quantity);
-        /*if (Double.parseDouble(myCart.getPriceData().totalPrice) >= 150) {
-            tv_taxpercentage.setVisibility(View.GONE);
-            tv_delivery.setVisibility(View.GONE);
-        } else {
-            tv_taxpercentage.setVisibility(View.VISIBLE);
-            tv_delivery.setVisibility(View.VISIBLE);
-            tv_taxpercentage.setText("\u20A8" + ". " + myCart.getPriceData().delivery_charge);
-        }*/
+        tv_totalcost.setText("\u20B9" + " " + myCart.getPriceData().totalPrice);
+        tv_deliverycharge.setText("\u20B9" + " " + myCart.getPriceData().delivery_charge);
+        tvQuantity.setText(myCart.getPriceData().total_quantity);
+        tv_grandtotal.setText("\u20B9" + " " +myCart.getPriceData().getGrand_total());
 
-        tv_grandtotdal.setText("\u20A8" + ". " + myCart.getPriceData().grand_total);
         footer.setVisibility(View.VISIBLE);
-
-        /*cb_quickdelivery.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    isQuickDelivery = "1";
-                    tv_grandtotdal.setText("\u20A8" + ". " + (Double.parseDouble(myCart.getPriceData().grand_total) + 10.00));
-                } else {
-                    isQuickDelivery = "0";
-                    tv_grandtotdal.setText("\u20A8" + ". " + myCart.getPriceData().grand_total);
-                }
-            }
-        });*/
-
-
     }
 }

@@ -68,8 +68,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_35sdp"
                             android:padding="@dimen/_5sdp"
-                            android:layout_marginTop="@dimen/_10sdp"
                             android:background="@drawable/roundedcorner_editext"
+                            android:layout_marginTop="@dimen/_10sdp"
                             android:drawableLeft="@drawable/ic_local_phone_black_24dp"
                             android:drawablePadding="@dimen/_5sdp"
                             android:fontFamily="Sans-serif"
@@ -92,8 +92,7 @@
                         <RelativeLayout
                                 android:id="@+id/rlpassword"
                                 android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                           >
+                                android:layout_height="wrap_content">
 
                             <EditText
                                     android:id="@+id/et_password"
@@ -120,7 +119,6 @@
                                     android:padding="@dimen/_5sdp"
                                     android:src="@drawable/ic_visibility_black_24dp" />
                         </RelativeLayout>
-
 
                         <RelativeLayout android:layout_width="match_parent"
                                         android:layout_marginTop="@dimen/_12sdp"

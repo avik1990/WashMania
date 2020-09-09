@@ -4,33 +4,33 @@ import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
-import android.util.Log
-import android.view.View
-import com.app.washmania.model.AboutUsmodel
-import com.app.washmania.others.Utility.CallContactNo
-import com.app.washmania.others.Utility.showToastShort
-import com.app.washmania.retrofit.api.ApiServices
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.text.SimpleDateFormat
-import java.util.*
 import android.graphics.Color
-import android.graphics.Color.parseColor
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.view.Window
 import android.widget.*
 import com.app.washmania.model.BaseResponse
 import com.app.washmania.model.MyProfile
 import com.app.washmania.model.Timermodel
 import com.app.washmania.others.*
+import com.app.washmania.others.Utility.CallContactNo
+import com.app.washmania.others.Utility.showToastShort
+import com.app.washmania.retrofit.api.ApiServices
 import com.app.washmania.retrofit.api.Constants
 import kotlinx.android.synthetic.main.activity_placeorder.*
-import retrofit2.http.Query
+import net.alexandroid.gps.GpsStatusDetector
+import net.alexandroid.gps.GpsStatusDetector.GpsStatusDetectorCallBack
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
-class PlaceOrderActivity : BaseActivity(), View.OnClickListener {
+class PlaceOrderActivity : BaseActivity(), View.OnClickListener,
+    GpsStatusDetectorCallBack {
 
     lateinit var mContext: Context
     lateinit var btn_menu: ImageView
@@ -48,7 +48,6 @@ class PlaceOrderActivity : BaseActivity(), View.OnClickListener {
     lateinit var tv_pagename: TextView
     lateinit var tv_changeAddress: TextView
 
-
     lateinit var pDialog: ProgressDialog
     lateinit var tv_cartcount: CircularTextView
     lateinit var iv_cart: ImageView
@@ -59,6 +58,7 @@ class PlaceOrderActivity : BaseActivity(), View.OnClickListener {
     var tag1 = 0
 
     lateinit var btn_placeoreder: Button
+    private var mGpsStatusDetector: GpsStatusDetector? = null
 
     var stTime: String = ""
     var stDate: String = ""
@@ -72,6 +72,8 @@ class PlaceOrderActivity : BaseActivity(), View.OnClickListener {
         pDialog.setCanceledOnTouchOutside(false)
         pDialog.setCancelable(false)
         year = Calendar.getInstance().get(Calendar.YEAR).toString()
+        mGpsStatusDetector = GpsStatusDetector(this)
+        mGpsStatusDetector!!.checkGpsStatus()
         getUserDetails()
     }
 
@@ -107,7 +109,6 @@ class PlaceOrderActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun generateTimer() {
-
         inflateLayoutTimer()
     }
 
@@ -127,7 +128,10 @@ class PlaceOrderActivity : BaseActivity(), View.OnClickListener {
         val call = redditAPI.GetMYProfile(WMPreference.get_userId(mContext))
         call.enqueue(object : Callback<MyProfile> {
 
-            override fun onResponse(call: Call<MyProfile>, response: retrofit2.Response<MyProfile>) {
+            override fun onResponse(
+                call: Call<MyProfile>,
+                response: retrofit2.Response<MyProfile>
+            ) {
                 Log.d("String", "" + response)
                 if (response.isSuccessful) {
                     registration = response.body()
@@ -150,41 +154,40 @@ class PlaceOrderActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        if (v === btn_back) {
-            finish()
-            onBackPressed()
-        } else if (v === iv_cart) {
-            val i = Intent(mContext, ProductCart::class.java)
-            i.putExtra("From", "Dashboard")
-            startActivity(i)
-        } else if (v == btn_placeoreder) {
-            /*if (tv_address.text.isEmpty()) {
-                Utility.showToastShort(mContext, "Please Enter Address")
-                return
-            }*/
-
-            if (tv_flatno.text.isEmpty()) {
-                Utility.showToastShort(mContext, "Please Enter Flat / Apartment no")
-                return
+        when {
+            v === btn_back -> {
+                finish()
+                onBackPressed()
             }
-
-            if (stDate.isEmpty()) {
-                Utility.showToastShort(mContext, "Please Select Date")
-                return
+            v === iv_cart -> {
+                val i = Intent(mContext, ProductCart::class.java)
+                i.putExtra("From", "Dashboard")
+                startActivity(i)
             }
+            v == btn_placeoreder -> {
+                if (tv_flatno.text.isEmpty()) {
+                    showToastShort(mContext, "Please Enter Flat / Apartment no")
+                    return
+                }
 
-            if (stTime.isEmpty()) {
-                Utility.showToastShort(mContext, "Please Select Time")
-                return
+                if (stDate.isEmpty()) {
+                    showToastShort(mContext, "Please Select Date")
+                    return
+                }
+
+                if (stTime.isEmpty()) {
+                    showToastShort(mContext, "Please Select Time")
+                    return
+                }
+                stDate = stDate.replace("\n", " ") + " " + year
+
+                postShippingData()
+
             }
-            stDate = stDate.replace("\n", " ") + " " + year
-
-            //Log.e("stDate",Utility.getFormattedDate(stDate))
-            postShippingData()
-
-        } else if (v == tv_changeAddress) {
-            val i = Intent(mContext, ChangeLocationActivity::class.java)
-            startActivity(i)
+            v == tv_changeAddress -> {
+                val i = Intent(mContext, ChangeLocationActivity::class.java)
+                startActivity(i)
+            }
         }
     }
 
@@ -221,7 +224,7 @@ class PlaceOrderActivity : BaseActivity(), View.OnClickListener {
 
     private fun inflateLayout() {
         val buttonLayoutParams =
-            LinearLayout.LayoutParams(110, 110)
+            LinearLayout.LayoutParams(150, 150)
         v_container.removeAllViews()
         buttonLayoutParams.setMargins(5, 5, 5, 5)
         stDate = listDates[0]
@@ -261,8 +264,7 @@ class PlaceOrderActivity : BaseActivity(), View.OnClickListener {
 
     private fun callTimerApi() {
         stDate = stDate.replace("\n", " ") + " " + year
-        //stDate="2020-01-04"
-        //showToastShort(mContext, Utility.getFormattedDate(stDate))
+        Log.e("stDate",stDate)
         getTimerDetails()
     }
 
@@ -282,16 +284,20 @@ class PlaceOrderActivity : BaseActivity(), View.OnClickListener {
         val call = redditAPI.GetPickupDate(Utility.getFormattedDate(stDate))
         call.enqueue(object : Callback<Timermodel> {
 
-            override fun onResponse(call: Call<Timermodel>, response: retrofit2.Response<Timermodel>) {
-                Log.d("String", "" + response)
+            override fun onResponse(
+                call: Call<Timermodel>,
+                response: retrofit2.Response<Timermodel>
+            ) {
                 if (response.isSuccessful) {
                     timermodel = response.body()
                     if (timermodel!!.ack == 1) {
                         listTime!!.clear()
                         listTime = timermodel!!.pickupTimeData
                         generateTimer()
-                    }else{
-                        showToastShort(mContext,"No Time Slot Available")
+                    } else {
+                        v_containertime.removeAllViews()
+                        stTime = "";
+                        showToastShort(mContext, "No Time Slot Available")
                     }
                     pDialog.dismiss()
                 }
@@ -306,7 +312,10 @@ class PlaceOrderActivity : BaseActivity(), View.OnClickListener {
 
     private fun inflateLayoutTimer() {
         val buttonLayoutParams =
-            LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
         v_containertime.removeAllViews()
         buttonLayoutParams.setMargins(5, 5, 5, 5)
         stTime = listTime.get(0)
@@ -379,7 +388,10 @@ class PlaceOrderActivity : BaseActivity(), View.OnClickListener {
         )
 
         call.enqueue(object : Callback<BaseResponse> {
-            override fun onResponse(call: Call<BaseResponse>, response: retrofit2.Response<BaseResponse>) {
+            override fun onResponse(
+                call: Call<BaseResponse>,
+                response: retrofit2.Response<BaseResponse>
+            ) {
                 Log.d("String", "" + response)
                 baseResponse = response.body()
                 if (baseResponse!!.ack == 1) {
@@ -416,6 +428,12 @@ class PlaceOrderActivity : BaseActivity(), View.OnClickListener {
         })
 
         dialog.show()
+    }
+
+    override fun onGpsAlertCanceledByUser() {
+    }
+
+    override fun onGpsSettingStatus(enabled: Boolean) {
     }
 
 

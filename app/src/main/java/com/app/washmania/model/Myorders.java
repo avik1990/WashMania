@@ -42,7 +42,6 @@ public class Myorders {
     }
 
     public class OrderDatum {
-
         @SerializedName("order_id")
         @Expose
         private String orderId;
@@ -70,6 +69,12 @@ public class Myorders {
         @SerializedName("delivery_status")
         @Expose
         private String deliveryStatus;
+        @SerializedName("cancel_request_sent")
+        @Expose
+        private String cancelRequestSent;
+        @SerializedName("review_posted")
+        @Expose
+        private String reviewPosted;
 
         public String getOrderId() {
             return orderId;
@@ -142,5 +147,22 @@ public class Myorders {
         public void setDeliveryStatus(String deliveryStatus) {
             this.deliveryStatus = deliveryStatus;
         }
+
+        public String getCancelRequestSent() {
+            return cancelRequestSent;
+        }
+
+        public void setCancelRequestSent(String cancelRequestSent) {
+            this.cancelRequestSent = cancelRequestSent;
+        }
+
+        public String getReviewPosted() {
+            return reviewPosted;
+        }
+
+        public void setReviewPosted(String reviewPosted) {
+            this.reviewPosted = reviewPosted;
+        }
+
     }
 }

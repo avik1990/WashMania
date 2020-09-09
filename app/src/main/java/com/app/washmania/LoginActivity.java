@@ -220,7 +220,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         ViewGroup viewGroup = findViewById(android.R.id.content);
 
         //then we will inflate the custom alert dialog xml that we created
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.my_dialog, viewGroup, false);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.pincode_reg_popup, viewGroup, false);
         FlexboxLayout container = dialogView.findViewById(R.id.v_container);
         Button btn_proceed = dialogView.findViewById(R.id.btn_proceed);
         Button btn_cancel = dialogView.findViewById(R.id.btn_cancel);

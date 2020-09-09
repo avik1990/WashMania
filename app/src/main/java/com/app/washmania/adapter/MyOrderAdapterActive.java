@@ -1,6 +1,7 @@
 package com.app.washmania.adapter;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.app.washmania.OrderDetailsActivity;
@@ -31,6 +33,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.List;
+
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class MyOrderAdapterActive extends RecyclerView.Adapter<MyOrderAdapterActive.MyViewHolder> {
     private List<Myorders.OrderDatum> moviesList;
@@ -107,6 +111,12 @@ public class MyOrderAdapterActive extends RecyclerView.Adapter<MyOrderAdapterAct
             }
         });
 
+        if(movie.getPaymentStatus().equalsIgnoreCase("Paid")){
+            holder.btn_cancel.setVisibility(View.GONE);
+        }else{
+            holder.btn_cancel.setVisibility(View.VISIBLE);
+        }
+
         holder.btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,7 +129,7 @@ public class MyOrderAdapterActive extends RecyclerView.Adapter<MyOrderAdapterAct
                             public void onClick(DialogInterface dialog, int which) {
                                 if (cd.isConnected()) {
                                     dialog.dismiss();
-                                    deletefromcart(holder.tvCartId.getText().toString().trim());
+                                    openCancelDialog(holder.tvCartId.getText().toString().trim());
                                 } else {
                                     Utility.INSTANCE.showToastShort(mContext, "No Internet Connection");
                                 }
@@ -137,6 +147,42 @@ public class MyOrderAdapterActive extends RecyclerView.Adapter<MyOrderAdapterAct
         });
     }
 
+    private void openCancelDialog(final String cart_id) {
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+        View view1 = inflater.inflate(R.layout.order_comment_popup, null);
+        final Dialog dialog = new Dialog(mContext);
+        dialog.setContentView(view1);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+        final EditText etComments = dialog.findViewById(R.id.etComments);
+        Button btnCancel = dialog.findViewById(R.id.btnCancel);
+        Button btnReview = dialog.findViewById(R.id.btnReview);
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        btnReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (etComments.getText().toString().trim().isEmpty()) {
+                    Utility.INSTANCE.showToastShort(mContext, "Enter Comments");
+                    return;
+                }
+
+                if (cd.isConnected()) {
+                    cancelfromcartItem(cart_id,etComments.getText().toString().trim());
+                    dialog.dismiss();
+                }
+
+
+            }
+        });
+        dialog.show();
+    }
 
     @Override
     public int getItemCount() {
@@ -144,7 +190,7 @@ public class MyOrderAdapterActive extends RecyclerView.Adapter<MyOrderAdapterAct
     }
 
 
-    private void deletefromcart(String cart_id) {
+    private void cancelfromcartItem(String cart_id,String comment) {
         progressDialog.show();
         String BASE_URL = mContext.getResources().getString(R.string.base_url);
         Retrofit retrofit = new Retrofit.Builder()
@@ -154,7 +200,7 @@ public class MyOrderAdapterActive extends RecyclerView.Adapter<MyOrderAdapterAct
 
         ApiServices redditAPI;
         redditAPI = retrofit.create(ApiServices.class);
-        Call<CartDeleteAction> call = redditAPI.GetCancelOrder(WMPreference.INSTANCE.get_userId(mContext), cart_id, WMPreference.INSTANCE.get_UniqueId(mContext));
+        Call<CartDeleteAction> call = redditAPI.GetCancelOrder(WMPreference.INSTANCE.get_userId(mContext), cart_id, WMPreference.INSTANCE.get_UniqueId(mContext),comment);
         call.enqueue(new Callback<CartDeleteAction>() {
 
             @Override

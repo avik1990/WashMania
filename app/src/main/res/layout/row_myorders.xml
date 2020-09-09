@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="wrap_content"
@@ -14,18 +13,18 @@
             android:id="@+id/v_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
             android:layout_margin="@dimen/_10sdp"
-            android:padding="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:clickable="true"
             android:focusable="true"
+            android:padding="@dimen/_5sdp"
             android:paddingBottom="10dp">
 
         <LinearLayout
                 android:id="@+id/llInfo"
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
             <RelativeLayout
                     android:layout_width="match_parent"
@@ -33,87 +32,135 @@
 
                 <TextView
                         android:id="@+id/tvOrderId"
-                        android:text="tvOrderId"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="tvOrderId"
                         android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:layout_height="wrap_content"/>
+                        android:textStyle="bold" />
 
                 <TextView
                         android:id="@+id/tvPrice"
-                        android:text="tvPrice"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/colorPrimaryDark1"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:textStyle="bold"
-                        android:layout_height="wrap_content"/>
+                        android:text="tvPrice"
+                        android:textColor="@color/colorPrimaryDark1"
+                        android:textStyle="bold" />
             </RelativeLayout>
 
             <TextView
                     android:id="@+id/tvBookedOn"
-                    android:text="tvPrice"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_height="wrap_content"/>
+                    android:text="tvPrice" />
 
             <TextView
                     android:id="@+id/tvPaymentMode"
-                    android:text="tvPrice"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_height="wrap_content"/>
+                    android:text="tvPrice" />
+
             <TextView
                     android:id="@+id/tvPaymentStatus"
-                    android:text="tvPrice"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_height="wrap_content"/>
+                    android:text="tvPrice" />
 
             <TextView
                     android:id="@+id/tvPickuppBoy"
-                    android:text="tvPrice"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_height="wrap_content"/>
+                    android:text="tvPrice" />
 
             <TextView
                     android:id="@+id/tvDeliveryStatus"
-                    android:text="tvPrice"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_height="wrap_content"/>
+                    android:text="tvPrice" />
         </LinearLayout>
-        <Button
-                android:id="@+id/btn_cancel"
+
+        <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_gravity="center_horizontal"
-                android:padding="@dimen/_5sdp"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/rounded_corner_btn_register"
-                android:text="Cancel Order"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:gravity="center"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/llInfo"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_13sdp"/>
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+            <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/rounded_corner_btn_login"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Cancel Order"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13sdp"
+                    android:visibility="gone" />
+
+            <Button
+                    android:id="@+id/btn_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@+id/llInfo"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_toLeftOf="@+id/btn_cancel"
+                    android:background="@drawable/rounded_corner_btn_register"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Post Review"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13sdp"
+                    android:visibility="gone" />
+
+            <Button
+                    android:id="@+id/btn_viewreview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@+id/llInfo"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_toLeftOf="@+id/btn_cancel"
+                    android:background="@drawable/rounded_corner_btn_register"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:text="View Review"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13sdp"
+                    android:visibility="gone" />
+        </LinearLayout>
+
+
         <TextView
                 android:id="@+id/tvCartId"
-                android:text="tvPrice"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:visibility="gone"
-                android:layout_height="wrap_content"/>
+                android:text="tvPrice"
+                android:visibility="gone" />
+
         <TextView
                 android:id="@+id/tvOrderIds"
-                android:text="tvPrice"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:visibility="gone"
-                android:layout_height="wrap_content"/>
-
+                android:text="tvPrice"
+                android:visibility="gone" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>
 

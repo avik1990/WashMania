@@ -42,9 +42,7 @@ interface ApiServices {
     fun AddToCart(
         @Query("user_id") user_id: String,
         @Query("unique_id") unique_id: String,
-        @Query(
-            "quantity"
-        ) quantity: String,
+        @Query("quantity") quantity: String,
         @Query("isCartAdd") isCartAdd: String,
         @Query("dress_id") dress_id: String
     ): Call<CartAdditionModel>
@@ -89,11 +87,6 @@ interface ApiServices {
         @Query("comment") comment: String
     ): Call<CartDeleteAction>
 
-    @GET("service.php?action=customer_care")
-    abstract fun PostCustomerCare(
-        @Query("user_id") user_id: String,
-        @Query("phone") phone: String
-    ): Call<CartDeleteAction>
 
     @GET("service.php?action=registration")
     fun UserRegistration(
@@ -136,7 +129,8 @@ interface ApiServices {
         @Query("address") address: String,
         @Query("state") state: String,
         @Query("city") city: String,
-        @Query("zip") zip: String
+        @Query("zip") zip: String,
+        @Query("landmark") landmark: String
     ): Call<BaseResponse>
 
     @GET("service.php?action=change_password")
@@ -186,15 +180,17 @@ interface ApiServices {
         @Query("floor") floor: String,
         @Query("pickup_instruction") pickup_instruction: String,
         @Query("pickup_date") pickup_date: String,
-        @Query("pickup_time") pickup_time: String
+        @Query("pickup_time") pickup_time: String,
+        @Query("landmark") landmark: String
     ): Call<BaseResponse>
 
 
-    @GET("service.php?action=cancel_order")
+    @GET("service.php?action=cancel_order_request")
     fun GetCancelOrder(
         @Query("user_id") user_id: String,
         @Query("cart_id") cart_id: String,
-        @Query("unique_id") unique_id: String
+        @Query("unique_id") unique_id: String,
+        @Query("request_comment") comments: String
     ): Call<CartDeleteAction>
 
     @GET("service.php?action=order_details")
@@ -204,5 +200,25 @@ interface ApiServices {
     ): Call<OrderDetailsModel>
 
 
+    @GET("service.php?action=customer_care")
+    fun PostCustomerCare(
+        @Query("user_id") user_id: String,
+        @Query("phone") phone: String
+    ): Call<CartDeleteAction>
+
+
+    @GET("service.php?action=review")
+    abstract fun PostReview(
+        @Query("user_id") user_id: String,
+        @Query("order_id") phone: String,
+        @Query("review") review: String,
+        @Query("rate") rate: String
+    ): Call<CartDeleteAction>
+
+    @GET("service.php?action=view_review")
+    abstract fun ViewReview(
+        @Query("user_id") user_id: String,
+        @Query("order_id") phone: String
+    ): Call<Reviewmodel>
 }
 

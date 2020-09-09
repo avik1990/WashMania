@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/logo"
             android:layout_centerHorizontal="true"
-            android:text="My Profile"
+            android:text="Edit Profile"
             android:textColor="@color/black"
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold" />
@@ -246,7 +246,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:background="@drawable/rounded_corner_btn"
-                    android:text="Update"
+                    android:text="Save"
                     android:textSize="@dimen/_14sdp"
                     android:textAllCaps="false"
                     android:textColor="@color/white" />

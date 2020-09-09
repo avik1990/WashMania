@@ -95,6 +95,7 @@ public class MyOrderActivity extends AppCompatActivity implements View.OnClickLi
 
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
